@@ -45,7 +45,7 @@ public class AlarmRecyclerAdapter extends RecyclerView.Adapter<AlarmRecyclerAdap
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public ImageView icon;
         public TextView text;
-        public TextView about;
+        public TextView about; // que porra de git
 
         public CustomViewHolder(View itemView) {
             super(itemView);
