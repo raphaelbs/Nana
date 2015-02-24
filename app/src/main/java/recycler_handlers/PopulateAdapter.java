@@ -7,44 +7,37 @@ import br.com.createlier.nana.nana.R;
 
 
 public class PopulateAdapter {
-    public static class AlarmAdapter {
-        private static ArrayList<InfoHolder> apl = new ArrayList<InfoHolder>();
+    private AlarmAdapter alarmAdapter;
+    private SettingsAdapter settingsAdapter;
 
-        public static void add(int resources, String time, int[] capsulesChain) {
-            apl.add(new InfoHolder(resources, time, capsulesChain));
-        }
-
-        public static ArrayList<InfoHolder> getPopulatedList() {
-            return populateList();
-        }
-
-
-        private static ArrayList<InfoHolder> populateList() {
-            for (int i = 0; i < 24; i++) {
-                apl.add(new InfoHolder(R.drawable.ic_launcher, i + ":00", new int[]{1, 2, 5, 4}));
-                apl.add(new InfoHolder(R.drawable.ic_launcher, i + ":30", new int[]{3, 5, 2, 1}));
-            }
-            return apl;
-        }
+    public void populateAlarmAdapter() {
+        alarmAdapter = new AlarmAdapter();
+        populateList(alarmAdapter);
     }
 
-    public static class SettingsAdapter {
-        private static ArrayList<InfoHolder> apl = new ArrayList<InfoHolder>();
+    public void populateSettingsAdapter() {
+        settingsAdapter = new SettingsAdapter();
+        populateList(settingsAdapter);
+    }
 
-        public static void add(int resources, String time) {
-            apl.add(new InfoHolder(resources, time));
-        }
+    public ArrayList<InfoHolder> getAlarmAdapterList() {
+        return alarmAdapter.getList();
+    }
 
-        public static ArrayList<InfoHolder> getPopulatedList() {
-            return populateList();
-        }
+    public ArrayList<InfoHolder> getSettingsAdapterList() {
+        return settingsAdapter.getList();
+    }
 
+    private void populateList(SettingsAdapter sa) {
+        for (int i = 0; i < CapsuleHandler.getCapsulesSize(); i++)
+            sa.add(R.drawable.ic_launcher, CapsuleHandler.getCapsuleName(i));
+    }
 
-        private static ArrayList<InfoHolder> populateList() {
-            for (int i = 0; i < CapsuleHandler.getCapsulesSize(); i++)
-                apl.add(new InfoHolder(R.drawable.ic_launcher, CapsuleHandler.getCapsuleName(i)));
-            return apl;
-        }
+    private void populateList(AlarmAdapter aa) {
+        aa.add(7, 30, new int[]{0});
+        aa.add(8, 30, new int[]{1, 2, 3});
+        aa.add(12, 00, new int[]{4});
+        aa.add(20, 30, new int[]{1, 5, 6});
     }
 }
 

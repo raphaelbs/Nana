@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
@@ -23,6 +24,7 @@ public class AlarmActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private ImageView add_pill;
     private RecyclerView alarm_list;
+    private PopulateAdapter populateAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,13 @@ public class AlarmActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+        populateAdapter = new PopulateAdapter();
+        populateAdapter.populateAlarmAdapter();
+
         alarm_list = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         alarm_list.setHasFixedSize(true);
 
-        alarm_list.setAdapter(new AlarmRecyclerAdapter(PopulateAdapter.AlarmAdapter.getPopulatedList()));
+        alarm_list.setAdapter(new AlarmRecyclerAdapter(populateAdapter.getAlarmAdapterList()));
         alarm_list.setLayoutManager(new LinearLayoutManager(this));
         alarm_list.setItemAnimator(new DefaultItemAnimator());
         alarm_list.addItemDecoration(new DividerItemDecoration(this, null));

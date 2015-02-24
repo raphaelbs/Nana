@@ -12,4 +12,9 @@
         <item name="divider">@color/dividerColor</item>
     </style>
 
+    <style name="ToolBarTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textSize">35sp</item>
+        <item name="android:alpha">0.87</item>
+    </style>
+
 </resources>

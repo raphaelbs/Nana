@@ -29,6 +29,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/ic_launcher"
+        android:textColor="@color/primaryText"
         android:text="08:00"
         android:textSize="24sp" />
     <!--

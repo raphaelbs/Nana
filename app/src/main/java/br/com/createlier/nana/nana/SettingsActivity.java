@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import Utils.DividerItemDecoration;
 import recycler_handlers.AlarmRecyclerAdapter;
@@ -19,6 +20,7 @@ public class SettingsActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
     private RecyclerView settings_capsules_rv;
+    private PopulateAdapter populateAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,17 @@ public class SettingsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_settings);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
+
         settings_capsules_rv = (RecyclerView) findViewById(R.id.settings_capsules_name_rv);
         setSupportActionBar(toolbar);
+
+        populateAdapter = new PopulateAdapter();
+        populateAdapter.populateSettingsAdapter();
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        settings_capsules_rv.setAdapter(new AlarmRecyclerAdapter(PopulateAdapter.SettingsAdapter.getPopulatedList()));
+        settings_capsules_rv.setAdapter(new AlarmRecyclerAdapter(populateAdapter.getSettingsAdapterList()));
         settings_capsules_rv.setLayoutManager(new LinearLayoutManager(this));
         settings_capsules_rv.setItemAnimator(new DefaultItemAnimator());
         settings_capsules_rv.addItemDecoration(new DividerItemDecoration(this, null));

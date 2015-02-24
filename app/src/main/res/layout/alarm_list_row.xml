@@ -23,19 +23,23 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
+        android:alpha="0.87"
         android:id="@+id/alarm_row_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/ic_launcher"
+        android:textColor="@color/primaryText"
         android:text="08:00"
         android:textSize="24sp" />
 
     <TextView
+        android:alpha="0.87"
         android:id="@+id/alarm_row_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primaryText"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="42dp"
         android:src="@drawable/ic_launcher"

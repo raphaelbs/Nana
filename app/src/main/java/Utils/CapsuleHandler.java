@@ -22,12 +22,12 @@ public final class CapsuleHandler {
     }
 
     public static void Fill() {
-        capsules.add("Neosaldina");
-        capsules.add("Dorflex");
+        capsules.add("Omeprazol");
         capsules.add("Adalat");
-        capsules.add("Levoid");
-        capsules.add("Predinisona");
-        capsules.add("AntiTPO");
-        capsules.add("T4");
+        capsules.add("Cymbalta");
+        capsules.add("Epaz");
+        capsules.add("Oscal");
+        capsules.add("Apraz");
+        capsules.add("Clinfar");
     }
 }
