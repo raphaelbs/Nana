@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Naná</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="title_activity_alarm">Alarmes</string>
+    <string name="title_activity_pill">Novo Alarme</string>
+
+    <string name="action_settings">Configurações</string>
+    <string name="action_alarm_clock">Alarmes</string>
+    <string name="add_pill">Novo Alarme</string>
+
+
+    <string name="alarm_hint">clique para mais detalhes</string>
+    <string name="settings_capsules_name_division">Nomes dos Remédios</string>
+
+</resources>

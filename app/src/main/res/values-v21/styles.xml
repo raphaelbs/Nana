@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="ThemeBase">
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="android:colorAccent">@color/accentColor</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textColorSecondary">@color/secondaryText</item>
+        <item name="android:divider">@color/dividerColor</item>
+    </style>
+</resources>

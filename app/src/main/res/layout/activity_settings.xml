@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.createlier.nana.nana.SettingsActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
+
+    <TextView
+        android:id="@+id/settings_capsules_name_division"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/app_bar"
+        android:layout_marginLeft="16dp"
+        android:paddingTop="16dp"
+        android:src="@drawable/ic_launcher"
+        android:text="@string/settings_capsules_name_division" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/settings_capsules_name_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/settings_capsules_name_division"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
