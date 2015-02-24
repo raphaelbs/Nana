@@ -16,6 +16,7 @@ import br.com.createlier.nana.nana.R;
  */
 public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<SettingsCapsulesRecyclerAdapter.CustomViewHolder> {
     private ArrayList<InfoHolder> list;
+    private int listCounter;
     private TitleRowHandler titleList;
     private final int IS_TITLE = 1;
     private final int IS_LIST_ITEM = 0;
@@ -23,12 +24,18 @@ public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<Settin
     public SettingsCapsulesRecyclerAdapter(TitleRowHandler titleList, ArrayList<InfoHolder> list) {
         this.list = list;
         this.titleList = titleList;
+        this.listCounter = 0;
+    }
+
+    private InfoHolder getItemInListOrded() {
+        return list.get(listCounter++);
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        if (titleList.getPositionList().contains(position))
+        if (position == 0 || position == 8)
+            //if (titleList.getPositionList().contains(position))
             return IS_TITLE;
 
         else return IS_LIST_ITEM;
@@ -53,9 +60,9 @@ public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<Settin
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         int index = titleList.getPositionList().indexOf(position);
         if (index != -1) {
-            holder.text.setText(titleList.getPositionList().get(index));
+            holder.text.setText(titleList.getTextList().get(index));
         } else {
-            InfoHolder ap = list.get(position);
+            InfoHolder ap = getItemInListOrded();
 
             holder.icon.setImageResource(ap.getRes());
             holder.text.setText(ap.getTime());
@@ -64,7 +71,7 @@ public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<Settin
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list.size() + titleList.getPositionList().size();
     }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
