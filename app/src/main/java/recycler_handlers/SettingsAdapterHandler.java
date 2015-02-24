@@ -8,7 +8,7 @@ import br.com.createlier.nana.nana.R;
 /**
  * Created by Raphael on 24/02/2015.
  */
-public class SettingsAdapter {
+public class SettingsAdapterHandler {
     private ArrayList<InfoHolder> apl = new ArrayList<InfoHolder>();
 
     public void add(int resources, String time) {

@@ -7,33 +7,45 @@ import br.com.createlier.nana.nana.R;
 
 
 public class PopulateAdapter {
-    private AlarmAdapter alarmAdapter;
-    private SettingsAdapter settingsAdapter;
+    private AlarmAdapterHandler alarmAdapterHandler;
+    private SettingsAdapterHandler settingsAdapterHandler;
+    private TitleRowHandler titleRowHandler;
 
     public void populateAlarmAdapter() {
-        alarmAdapter = new AlarmAdapter();
-        populateList(alarmAdapter);
+        alarmAdapterHandler = new AlarmAdapterHandler();
+        populateList(alarmAdapterHandler);
     }
 
     public void populateSettingsAdapter() {
-        settingsAdapter = new SettingsAdapter();
-        populateList(settingsAdapter);
+        settingsAdapterHandler = new SettingsAdapterHandler();
+        titleRowHandler = new TitleRowHandler();
+        populateList(settingsAdapterHandler);
+        populateList(titleRowHandler);
     }
 
     public ArrayList<InfoHolder> getAlarmAdapterList() {
-        return alarmAdapter.getList();
+        return alarmAdapterHandler.getList();
     }
 
     public ArrayList<InfoHolder> getSettingsAdapterList() {
-        return settingsAdapter.getList();
+        return settingsAdapterHandler.getList();
     }
 
-    private void populateList(SettingsAdapter sa) {
+    public TitleRowHandler getTitleRowHandler() {
+        return titleRowHandler;
+    }
+
+    private void populateList(SettingsAdapterHandler sa) {
         for (int i = 0; i < CapsuleHandler.getCapsulesSize(); i++)
             sa.add(R.drawable.ic_launcher, CapsuleHandler.getCapsuleName(i));
     }
 
-    private void populateList(AlarmAdapter aa) {
+    private void populateList(TitleRowHandler tr) {
+        tr.add(0,"Nomes:");
+        tr.add(8,"Conexão:");
+    }
+
+    private void populateList(AlarmAdapterHandler aa) {
         aa.add(7, 30, new int[]{0});
         aa.add(8, 30, new int[]{1, 2, 3});
         aa.add(12, 00, new int[]{4});

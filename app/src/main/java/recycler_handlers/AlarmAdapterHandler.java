@@ -8,7 +8,7 @@ import br.com.createlier.nana.nana.R;
  * Created by Raphael on 24/02/2015.
  */
 
-public class AlarmAdapter {
+public class AlarmAdapterHandler {
     private ArrayList<InfoHolder> apl = new ArrayList<InfoHolder>();
 
     public void add(int hour, int minutes, int[] capsulesChain) {

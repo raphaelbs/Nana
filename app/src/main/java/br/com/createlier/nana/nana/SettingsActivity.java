@@ -14,6 +14,7 @@ import android.widget.TextView;
 import Utils.DividerItemDecoration;
 import recycler_handlers.AlarmRecyclerAdapter;
 import recycler_handlers.PopulateAdapter;
+import recycler_handlers.SettingsCapsulesRecyclerAdapter;
 
 
 public class SettingsActivity extends ActionBarActivity {
@@ -38,7 +39,10 @@ public class SettingsActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        settings_capsules_rv.setAdapter(new AlarmRecyclerAdapter(populateAdapter.getSettingsAdapterList()));
+        settings_capsules_rv.setAdapter(
+                new SettingsCapsulesRecyclerAdapter(
+                        populateAdapter.getTitleRowHandler(),
+                        populateAdapter.getSettingsAdapterList()));
         settings_capsules_rv.setLayoutManager(new LinearLayoutManager(this));
         settings_capsules_rv.setItemAnimator(new DefaultItemAnimator());
         settings_capsules_rv.addItemDecoration(new DividerItemDecoration(this, null));

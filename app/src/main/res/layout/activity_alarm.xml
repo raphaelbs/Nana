@@ -24,21 +24,11 @@
         android:stateListAnimator="@drawable/anim"
         android:title="@string/add_pill" />
 
-    <TextView
-        android:id="@+id/hint_text"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_below="@id/app_bar"
-        android:layout_marginLeft="16dp"
-        android:paddingTop="16dp"
-        android:src="@drawable/ic_launcher"
-        android:text="@string/alarm_hint" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alarm_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/hint_text"
+        android:layout_below="@id/app_bar"
         android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
 

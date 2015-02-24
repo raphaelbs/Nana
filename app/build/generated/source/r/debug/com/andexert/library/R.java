@@ -32,7 +32,7 @@ public final class R {
 		public static final int simpleRipple = 0x7f09001d;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f0b0014;
+		public static final int app_name = 0x7f0b0013;
 	}
 	public static final class style {
 		public static final int AppTheme = 0x7f0c0000;

@@ -16,24 +16,50 @@ import br.com.createlier.nana.nana.R;
  */
 public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<SettingsCapsulesRecyclerAdapter.CustomViewHolder> {
     private ArrayList<InfoHolder> list;
+    private TitleRowHandler titleList;
+    private final int IS_TITLE = 1;
+    private final int IS_LIST_ITEM = 0;
 
-    public SettingsCapsulesRecyclerAdapter(ArrayList<InfoHolder> list) {
+    public SettingsCapsulesRecyclerAdapter(TitleRowHandler titleList, ArrayList<InfoHolder> list) {
         this.list = list;
+        this.titleList = titleList;
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (titleList.getPositionList().contains(position))
+            return IS_TITLE;
+
+        else return IS_LIST_ITEM;
     }
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.settings_row_list, parent, false);
-        return new CustomViewHolder(v);
+        if (viewType == IS_TITLE) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.title_row, parent, false);
+            return new CustomViewHolder(v, true);
+        }
+        if (viewType == IS_LIST_ITEM) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.settings_row_list, parent, false);
+            return new CustomViewHolder(v, false);
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        InfoHolder ap = list.get(position);
+        int index = titleList.getPositionList().indexOf(position);
+        if (index != -1) {
+            holder.text.setText(titleList.getPositionList().get(index));
+        } else {
+            InfoHolder ap = list.get(position);
 
-        holder.icon.setImageResource(ap.getRes());
-        holder.text.setText(ap.getTime());
+            holder.icon.setImageResource(ap.getRes());
+            holder.text.setText(ap.getTime());
+        }
     }
 
     @Override
@@ -45,10 +71,15 @@ public class SettingsCapsulesRecyclerAdapter extends RecyclerView.Adapter<Settin
         public ImageView icon;
         public TextView text;
 
-        public CustomViewHolder(View itemView) {
+        public CustomViewHolder(View itemView, boolean isTitle) {
             super(itemView);
-            icon = (ImageView) itemView.findViewById(R.id.settings_row_icon);
-            text = (TextView) itemView.findViewById(R.id.settings_row_text);
+
+            if (isTitle) {
+                text = (TextView) itemView.findViewById(R.id.title_row_text);
+            } else {
+                icon = (ImageView) itemView.findViewById(R.id.settings_row_icon);
+                text = (TextView) itemView.findViewById(R.id.settings_row_text);
+            }
         }
     }
 }
