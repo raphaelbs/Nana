@@ -78,7 +78,6 @@ public class SettingsActivity extends ActionBarActivity {
                     }
                 });
         infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Conexão");
-
         infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Sons");
     }
 }
