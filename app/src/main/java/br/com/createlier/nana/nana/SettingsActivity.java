@@ -9,19 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import Utils.DividerItemDecoration;
-import recycler_handlers.AlarmRecyclerAdapter;
-import recycler_handlers.PopulateAdapter;
-import recycler_handlers.SettingsCapsulesRecyclerAdapter;
+import recycler_handlers.InfoHolder;
+import recycler_handlers.RITAOAdapter;
 
 
 public class SettingsActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
     private RecyclerView settings_capsules_rv;
-    private PopulateAdapter populateAdapter;
+    private InfoHolder infoHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +31,13 @@ public class SettingsActivity extends ActionBarActivity {
         settings_capsules_rv = (RecyclerView) findViewById(R.id.settings_capsules_name_rv);
         setSupportActionBar(toolbar);
 
-        populateAdapter = new PopulateAdapter();
-        populateAdapter.populateSettingsAdapter();
+        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
+        populateList();
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        settings_capsules_rv.setAdapter(
-                new SettingsCapsulesRecyclerAdapter(
-                        populateAdapter.getTitleRowHandler(),
-                        populateAdapter.getSettingsAdapterList()));
+        settings_capsules_rv.setAdapter(new RITAOAdapter(infoHolder));
         settings_capsules_rv.setLayoutManager(new LinearLayoutManager(this));
         settings_capsules_rv.setItemAnimator(new DefaultItemAnimator());
         settings_capsules_rv.addItemDecoration(new DividerItemDecoration(this, null));
@@ -69,5 +64,19 @@ public class SettingsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void populateList() {
+        int DEFAULT_ICON = R.mipmap.ic_launcher;
+        /*this.infoHolder.add(DEFAULT_ICON, "Nomeclatura", false);
+        this.infoHolder.add(DEFAULT_ICON, "Conexão", false);
+        this.infoHolder.add(DEFAULT_ICON, "Sons", false);*/
+
+        this.infoHolder.add("Título comum");
+        this.infoHolder.add(DEFAULT_ICON,"","editText - dica", true);
+        this.infoHolder.add(DEFAULT_ICON,"Seleção comum",false);
+        this.infoHolder.add(DEFAULT_ICON,"editText preenchido", true);
+        this.infoHolder.add(DEFAULT_ICON,"editText preenchido","e com dica", true);
+        this.infoHolder.add(DEFAULT_ICON,"seleção comum"," e com texto embaixo", false);
     }
 }

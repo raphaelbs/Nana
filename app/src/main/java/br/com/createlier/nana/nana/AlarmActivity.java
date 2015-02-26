@@ -11,12 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
-import recycler_handlers.AlarmRecyclerAdapter;
-import recycler_handlers.PopulateAdapter;
+import recycler_handlers.InfoHolder;
+import recycler_handlers.RITAOAdapter;
 
 
 public class AlarmActivity extends ActionBarActivity {
@@ -24,7 +23,7 @@ public class AlarmActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private ImageView add_pill;
     private RecyclerView alarm_list;
-    private PopulateAdapter populateAdapter;
+    private InfoHolder infoHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +34,13 @@ public class AlarmActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        populateAdapter = new PopulateAdapter();
-        populateAdapter.populateAlarmAdapter();
+        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
+        populateList();
 
         alarm_list = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         alarm_list.setHasFixedSize(true);
 
-        alarm_list.setAdapter(new AlarmRecyclerAdapter(populateAdapter.getAlarmAdapterList()));
+        alarm_list.setAdapter(new RITAOAdapter(infoHolder));
         alarm_list.setLayoutManager(new LinearLayoutManager(this));
         alarm_list.setItemAnimator(new DefaultItemAnimator());
         alarm_list.addItemDecoration(new DividerItemDecoration(this, null));
@@ -76,5 +75,35 @@ public class AlarmActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    private void populateList() {
+        addOnInfoHolder(7, 30, new int[]{0});
+        addOnInfoHolder(8, 30, new int[]{1, 2, 3});
+        addOnInfoHolder(12, 00, new int[]{4});
+        addOnInfoHolder(20, 30, new int[]{1, 5, 6});
+    }
+
+    private void addOnInfoHolder(int hour, int min, int[] capsules){
+        String time = String.format("%02d", hour) + ":" + String.format("%02d", min);
+        this.infoHolder.add(chooseResourcesFromTime(hour), time, capsules);
+    }
+
+    private int chooseResourcesFromTime(int hour){
+        if(hour >= 0 && hour < 4)
+            return R.mipmap.midnight;
+        if(hour >= 4 && hour < 6)
+            return R.mipmap.night;
+        if(hour >= 6 && hour < 11)
+            return R.mipmap.sunrise;
+        if(hour >= 10 && hour < 16)
+            return R.mipmap.midday;
+        if(hour >= 16 && hour < 19)
+            return R.mipmap.afternoon;
+        if(hour >= 19 && hour < 22)
+            return R.mipmap.night;
+        if(hour >= 22 && hour < 24)
+            return R.mipmap.midnight;
+        return 0;
     }
 }

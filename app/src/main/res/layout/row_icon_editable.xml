@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/rie_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_launcher" />
+
+    <EditText
+        android:id="@+id/rie_edit_text"
+        android:layout_width="290dp"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:text="teste"
+        android:layout_marginLeft="72dp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+</RelativeLayout>
