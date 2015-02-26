@@ -1,7 +1,6 @@
 package recycler_handlers;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,8 @@ import br.com.createlier.nana.nana.R;
  * Created by dede on 22/02/2015.
  */
 public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHolder> {
-    private InfoHolder list;
     private final static int IS_EDITABLE = 10;
+    private InfoHolder list;
     private int type;
 
     public RITAOAdapter(InfoHolder list) {
@@ -80,6 +79,10 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         String text = list.getTextList().get(position);
         Boolean ed = list.getIsEditable().get(position);
+        try {
+            holder.setClickListener(list.getOcl().get(position));
+        } catch (Exception e) {
+        }
 
         if (type == InfoHolder.CONTAIN_ONLY_TEXT) {
             holder.text.setText(text);
@@ -116,14 +119,17 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
         return list.getSize();
     }
 
+
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public ImageView icon;
         public TextView text;
         public EditText eText;
         public TextView about;
+        private View parent;
 
         public CustomViewHolder(View itemView, int CONTAINER_TYPE) {
             super(itemView);
+            parent = itemView;
 
             if (CONTAINER_TYPE == InfoHolder.CONTAIN_ONLY_TEXT) {
                 text = (TextView) itemView.findViewById(R.id.title_row_text);
@@ -141,6 +147,10 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
                 icon = (ImageView) itemView.findViewById(R.id.rita_icon);
                 about = (TextView) itemView.findViewById(R.id.rita_about);
             }
+        }
+
+        public void setClickListener(View.OnClickListener ocl) {
+            parent.setOnClickListener(ocl);
         }
     }
 }

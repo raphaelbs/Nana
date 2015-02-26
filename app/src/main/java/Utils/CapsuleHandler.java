@@ -21,6 +21,10 @@ public final class CapsuleHandler {
         return size;
     }
 
+    public static ArrayList<String> getCapsules() {
+        return capsules;
+    }
+
     public static void Fill() {
         capsules.add("Omeprazol");
         capsules.add("Adalat");

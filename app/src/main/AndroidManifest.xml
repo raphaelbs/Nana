@@ -24,6 +24,10 @@
             android:name=".PillActivity"
             android:label="@string/title_activity_pill"
             android:parentActivityName=".AlarmActivity"></activity>
+        <activity
+            android:name=".PillNamesActivity"
+            android:label=""
+            android:parentActivityName=".SettingsActivity"></activity>
     </application>
 
 </manifest>

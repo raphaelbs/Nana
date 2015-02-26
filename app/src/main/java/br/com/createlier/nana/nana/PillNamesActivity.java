@@ -1,6 +1,5 @@
 package br.com.createlier.nana.nana;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -10,27 +9,35 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 
+import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
 
-public class SettingsActivity extends ActionBarActivity {
+public class PillNamesActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
-    private RecyclerView settings_capsules_rv;
+    private TextView title;
+    private RecyclerView recyclerView;
     private InfoHolder infoHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_pillnames);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
+        title = (TextView) toolbar.findViewById(R.id.app_bar_dynamic_title);
+        title.setText("Defina nomes");
+        setSupportActionBar(toolbar);
 
-        settings_capsules_rv = (RecyclerView) findViewById(R.id.settings_capsules_name_rv);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
 
         infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
@@ -39,19 +46,17 @@ public class SettingsActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        settings_capsules_rv.setAdapter(new RITAOAdapter(infoHolder));
-        settings_capsules_rv.setLayoutManager(new LinearLayoutManager(this));
-        settings_capsules_rv.setItemAnimator(new DefaultItemAnimator());
-        settings_capsules_rv.addItemDecoration(new DividerItemDecoration(this, null));
+        recyclerView.setAdapter(new RITAOAdapter(infoHolder));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, null));
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
-
     }
 
     @Override
@@ -60,6 +65,14 @@ public class SettingsActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        /*if (id == R.id.action_alarm_clock) {
+            startActivity(new Intent(this, AlarmActivity.class));
+        }
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }*/
 
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
@@ -70,15 +83,7 @@ public class SettingsActivity extends ActionBarActivity {
 
     private void populateList() {
         int DEFAULT_ICON = R.mipmap.ic_launcher;
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Nomeclatura")
-                .setOnClick(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(), PillNamesActivity.class));
-                    }
-                });
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Conexão");
-
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Sons");
+        for (String cap : CapsuleHandler.getCapsules())
+            infoHolder.addSelectionWithIcon(DEFAULT_ICON, cap);
     }
 }
