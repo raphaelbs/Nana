@@ -4,10 +4,10 @@
     <color name="primaryColorDark">#5D4037</color>
     <color name="accentColor">#FF5252</color>
     <color name="lightPrimaryColor">#D7CCC8</color>
-    <color name="primaryText">#212121</color>
-    <color name="secondaryText">#727272</color>
+    <color name="primaryText">#DE212121</color>
+    <color name="secondaryText">#DE727272</color>
     <color name="dividerColor">#B6B6B6</color>
-    <color name="textAndIcons">#FFFFFF</color>
+    <color name="textAndIcons">#DEFFFFFF</color>
 
     <!-- For inspiration go to: http://www.materialpalette.com/brown/red -->
 </resources>
