@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="128dp"
-    android:background="@color/primaryColor"
-    android:elevation="4dp"
-    app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-    app:theme="@style/Theme.AppCompat.NoActionBar"
-    app:titleTextAppearance="@style/ToolBarTheme">
+    android:layout_height="@dimen/toolbar_extended_container">
 
-</android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_app"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_extended_size"
+        android:background="@color/primaryColor"
+        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:titleTextAppearance="@style/ToolBarTheme">
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_elevation"
+        android:layout_below="@id/toolbar_app">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/toolbar_shadow" />
+    </FrameLayout>
+
+</RelativeLayout>

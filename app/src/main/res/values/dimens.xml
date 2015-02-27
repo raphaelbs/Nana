@@ -5,6 +5,14 @@
 
     <dimen name="fab_size">56dp</dimen>
 
-    <dimen name="button_elevation">2dp</dimen>
-    <dimen name="button_press_elevation">4dp</dimen>
+    <dimen name="button_elevation">3dp</dimen>
+
+    <dimen name="toolbar_extended_size">128dp</dimen>
+    <dimen name="toolbar_extended_container">131dp</dimen>
+
+    <dimen name="toolbar_size">56dp</dimen>
+    <dimen name="toolbar_container">59dp</dimen>
+
+    <dimen name="toolbar_elevation">3dp</dimen>
+    <dimen name="toolbar_compensation">-2dp</dimen>
 </resources>

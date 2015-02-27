@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,15 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar_extended"></include>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarm_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:layout_marginTop="@dimen/toolbar_compensation"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
-    <ImageButton
+    <com.software.shell.fab.ActionButton
         android:id="@+id/button_add_pill"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
@@ -17,19 +25,16 @@
         android:layout_below="@id/app_bar"
         android:layout_gravity="right"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="-24dp"
-        android:background="@drawable/circle"
-        android:elevation="6dp"
-        android:src="@mipmap/add_pill"
-        android:stateListAnimator="@drawable/anim"
-        android:title="@string/add_pill" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/alarm_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/app_bar"
-        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="-30dp"
+        android:elevation="@dimen/button_elevation"
+        fab:button_color="@color/accentColor"
+        fab:button_colorPressed="@color/accent900"
+        fab:hide_animation="@anim/fab_jump_to_right"
+        fab:image="@mipmap/add_pill"
+        fab:shadow_radius="@dimen/button_elevation"
+        fab:shadow_xOffset="@dimen/button_elevation"
+        fab:shadow_yOffset="@dimen/button_elevation"
+        fab:show_animation="@anim/fab_jump_from_right" />
 
 
 </RelativeLayout>

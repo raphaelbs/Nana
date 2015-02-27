@@ -28,7 +28,7 @@ public class SettingsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_app);
 
         settings_capsules_rv = (RecyclerView) findViewById(R.id.settings_capsules_name_rv);
         setSupportActionBar(toolbar);

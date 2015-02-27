@@ -26,6 +26,7 @@ public final class CapsuleHandler {
     }
 
     public static void Fill() {
+        capsules = new ArrayList<String>();
         capsules.add("Omeprazol");
         capsules.add("Adalat");
         capsules.add("Cymbalta");

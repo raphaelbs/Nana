@@ -29,7 +29,7 @@ public class PillNamesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pillnames);
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         title = (TextView) toolbar.findViewById(R.id.app_bar_dynamic_title);
         title.setText("Defina nomes");
         setSupportActionBar(toolbar);
@@ -40,7 +40,6 @@ public class PillNamesActivity extends ActionBarActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
 
-        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
         populateList();
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -82,6 +81,7 @@ public class PillNamesActivity extends ActionBarActivity {
     }
 
     private void populateList() {
+        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
         int DEFAULT_ICON = R.mipmap.ic_launcher;
         for (String cap : CapsuleHandler.getCapsules())
             infoHolder.addSelectionWithIcon(DEFAULT_ICON, cap);

@@ -10,7 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+
+import com.software.shell.fab.ActionButton;
 
 import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
@@ -21,7 +22,7 @@ import recycler_handlers.RITAOAdapter;
 public class AlarmActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
-    private ImageView add_pill;
+    private ActionButton actionButton;
     private RecyclerView alarm_list;
     private InfoHolder infoHolder;
 
@@ -31,7 +32,7 @@ public class AlarmActivity extends ActionBarActivity {
         setContentView(R.layout.activity_alarm);
         CapsuleHandler.Fill();
 
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         setSupportActionBar(toolbar);
 
         infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
@@ -45,15 +46,24 @@ public class AlarmActivity extends ActionBarActivity {
         alarm_list.setItemAnimator(new DefaultItemAnimator());
         alarm_list.addItemDecoration(new DividerItemDecoration(this, null));
 
-        add_pill = (ImageView) findViewById(R.id.button_add_pill);
-        add_pill.setOnClickListener(new View.OnClickListener() {
+        actionButton = (ActionButton) findViewById(R.id.button_add_pill);
+
+        actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                actionButton.startAnimation(actionButton.getHideAnimation());
                 startActivity(new Intent(getApplicationContext(), PillActivity.class));
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+        actionButton.startAnimation(actionButton.getShowAnimation());
+
+        super.onResume();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,6 +71,7 @@ public class AlarmActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
