@@ -33,7 +33,6 @@ public class SettingsActivity extends ActionBarActivity {
         settings_capsules_rv = (RecyclerView) findViewById(R.id.settings_capsules_name_rv);
         setSupportActionBar(toolbar);
 
-        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
         populateList();
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -69,15 +68,28 @@ public class SettingsActivity extends ActionBarActivity {
     }
 
     private void populateList() {
+        infoHolder = new InfoHolder(this);
         int DEFAULT_ICON = R.mipmap.ic_launcher;
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Nomeclatura")
-                .setOnClick(new View.OnClickListener() {
+        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+                R.string.settings_names_item,
+                R.string.settings_names_item_desc)
+                .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(getApplicationContext(), PillNamesActivity.class));
                     }
                 });
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Conexão");
-        infoHolder.addSelectionWithIcon(DEFAULT_ICON, "Sons");
+        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+                R.string.settings_connection_item,
+                R.string.settings_connection_item_desc)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getApplicationContext(), ConnectionActivity.class));
+                    }
+                });
+        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+                R.string.settings_songs_item,
+                R.string.settings_songs_item_desc);
     }
 }

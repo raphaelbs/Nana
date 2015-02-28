@@ -1810,20 +1810,22 @@ containing a value of this type.
         public static final int abc_simple_dropdown_hint=0x7f040016;
         public static final int activity_add_pill=0x7f040017;
         public static final int activity_alarm=0x7f040018;
-        public static final int activity_pillnames=0x7f040019;
-        public static final int activity_settings=0x7f04001a;
-        public static final int app_bar=0x7f04001b;
-        public static final int app_bar_extended=0x7f04001c;
-        public static final int row_divisor_text=0x7f04001d;
-        public static final int row_icon_editable=0x7f04001e;
-        public static final int row_icon_text=0x7f04001f;
-        public static final int row_icon_text_about=0x7f040020;
-        public static final int support_simple_spinner_dropdown_item=0x7f040021;
+        public static final int activity_connection=0x7f040019;
+        public static final int activity_pillnames=0x7f04001a;
+        public static final int activity_settings=0x7f04001b;
+        public static final int app_bar=0x7f04001c;
+        public static final int app_bar_extended=0x7f04001d;
+        public static final int row_divisor_text=0x7f04001e;
+        public static final int row_icon_editable=0x7f04001f;
+        public static final int row_icon_text=0x7f040020;
+        public static final int row_icon_text_about=0x7f040021;
+        public static final int support_simple_spinner_dropdown_item=0x7f040022;
     }
     public static final class menu {
         public static final int menu_alarm=0x7f0d0000;
-        public static final int menu_pill=0x7f0d0001;
-        public static final int menu_settings=0x7f0d0002;
+        public static final int menu_conection=0x7f0d0001;
+        public static final int menu_pill=0x7f0d0002;
+        public static final int menu_settings=0x7f0d0003;
     }
     public static final class mipmap {
         public static final int add_pill=0x7f030000;
@@ -1858,10 +1860,19 @@ containing a value of this type.
         public static final int action_settings=0x7f0b0011;
         public static final int add_pill=0x7f0b0012;
         public static final int app_name=0x7f0b0013;
-        public static final int settings_capsules_name_division=0x7f0b0014;
-        public static final int title_activity_alarm=0x7f0b0015;
-        public static final int title_activity_pill=0x7f0b0016;
-        public static final int title_activity_settings=0x7f0b0017;
+        public static final int connection_att_item=0x7f0b0014;
+        public static final int connection_att_item_desc=0x7f0b0015;
+        public static final int connection_up_item=0x7f0b0016;
+        public static final int connection_up_item_desc=0x7f0b0017;
+        public static final int settings_connection_item=0x7f0b0018;
+        public static final int settings_connection_item_desc=0x7f0b0019;
+        public static final int settings_names_item=0x7f0b001a;
+        public static final int settings_names_item_desc=0x7f0b001b;
+        public static final int settings_songs_item=0x7f0b001c;
+        public static final int settings_songs_item_desc=0x7f0b001d;
+        public static final int title_activity_alarm=0x7f0b001e;
+        public static final int title_activity_pill=0x7f0b001f;
+        public static final int title_activity_settings=0x7f0b0020;
     }
     public static final class style {
         /**  Customize your theme here. 

@@ -1,5 +1,6 @@
 package recycler_handlers;
 
+import android.content.Context;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -13,144 +14,233 @@ public class InfoHolder {
     public final static int CONTAIN_ONLY_TEXT = 0x0;
     public final static int CONTAIN_ICON_TEXT = 0x1;
     public final static int CONTAIN_ICON_TEXT_ABOUT = 0x2;
+    public final static int CONTAIN_ICON_EDIT = 0x4;
+    public final static int CONTAIN_ICON_EDIT_TEXT = 0x8;
     private final static String error = "This InfoHolder is not qualified to store this data-types." +
             "Try to change the CONTENT_VALUE parameter inside the InfoHolder constructor or " +
             "use a different type of InfoHolder.add() method.";
-    private ArrayList<String> text;
-    private ArrayList<Integer> icon;
-    private ArrayList<String> about;
-    private ArrayList<Boolean> isEditable;
-    private ArrayList<View.OnClickListener> ocl;
-    private int current_content_value;
+    private ArrayList<InfoData> infoDatas;
+    private Context context;
 
-    public InfoHolder(int CONTENT_VALUE) {
-        this.current_content_value = CONTENT_VALUE;
-        this.isEditable = new ArrayList<Boolean>();
-        this.text = new ArrayList<String>();
-        this.ocl = new ArrayList<View.OnClickListener>();
-        if (CONTENT_VALUE > CONTAIN_ONLY_TEXT)
-            this.icon = new ArrayList<Integer>();
-        if (CONTENT_VALUE == CONTAIN_ICON_TEXT_ABOUT)
-            this.about = new ArrayList<String>();
+    public InfoHolder(Context context) {
+        this.context = context;
+        this.infoDatas = new ArrayList<InfoData>();
     }
 
-    public void add(int resource, String text, int[] capsuleChain) {
-        if (current_content_value != CONTAIN_ICON_TEXT_ABOUT)
-            throw new NullPointerException(error);
-        else {
-            this.text.add(text);
-            this.icon.add(resource);
-            String about = "";
-            for (int i = 0; i < capsuleChain.length; i++) {
-                about += CapsuleHandler.getCapsuleName(capsuleChain[i]);
-                if (i != capsuleChain.length - 1)
-                    about += ", ";
-            }
-            this.about.add(about);
-            this.isEditable.add(false);
-            this.ocl.add(null);
+    /**
+     * Add an item inside this RecyclerView adapter that contains an ImageView(icon), TextView(time) and
+     * other TextView(capsule chain name).
+     * @param resource
+     * @param text
+     * @param capsuleChain
+     * @return
+     */
+    public InfoData addAlarmSelector(int resource, String text, int[] capsuleChain) {
+        String about = "";
+        for (int i = 0; i < capsuleChain.length; i++) {
+            about += CapsuleHandler.getCapsuleName(capsuleChain[i]);
+            if (i != capsuleChain.length - 1)
+                about += ", ";
         }
+
+        infoDatas.add(
+                new InfoData(
+                        resource,
+                        text,
+                        about,
+                        false)
+        );
+
+        return getLastAdded();
     }
 
-    private void add(int resource, String text, String about, boolean isEditable) {
-        if (current_content_value != CONTAIN_ICON_TEXT_ABOUT)
-            throw new NullPointerException(error);
-        else {
-            this.text.add(text);
-            this.icon.add(resource);
-            this.ocl.add(null);
-            this.about.add(about);
-            this.isEditable.add(isEditable);
-        }
+    /**
+     * Add an item to this RecyclerView adapter with a TextView.
+     *
+     * @param text
+     * @return
+     */
+    public InfoData addTitle(String text) {
+        infoDatas.add(
+                new InfoData(
+                        text)
+        );
+        return getLastAdded();
+    }
+
+    /**
+     * Add an item to this RecyclerView adapter with a TextView.
+     * You need to supply the resources path instead of the value.
+     *
+     * @param textPath
+     * @return
+     */
+    public InfoData addTitle(int textPath) {
+        infoDatas.add(
+                new InfoData(
+                        getFromResources(textPath))
+        );
+        return getLastAdded();
+    }
+
+    /**
+     * Add an item to this RecyclerView adapter with a TextView and an ImageView(icon).
+     *
+     * @param iconPath
+     * @param text
+     * @return
+     */
+    public InfoData addSelectionWithIcon(int iconPath, String text) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        text,
+                        false)
+        );
+        return getLastAdded();
+    }
+
+    /**
+     * Add an item to this RecyclerView adapter with a TextView and an ImageView(icon).
+     * You need to supply the resources path instead of the value.
+     *
+     * @param iconPath
+     * @param textPath
+     * @return
+     */
+    public InfoData addSelectionWithIcon(int iconPath, int textPath) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        getFromResources(textPath),
+                        false)
+        );
+        return getLastAdded();
+    }
+
+    /**
+     * Add an item to this RecyclerView adapter with a TextView, a complementary TextView(about) and an ImageView(icon).
+     *
+     * @param iconPath
+     * @param text
+     * @param complement
+     * @return
+     */
+    public InfoData addSelectionWithComplementAndIcon(int iconPath, String text, String complement) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        text,
+                        complement,
+                        false)
+        );
+        return getLastAdded();
+    }
+
+    /**
+     * Add an item to this RecyclerView adapter with a TextView, a complementary TextView(about) and an ImageView(icon).
+     * You need to supply the resources path instead of the value.
+     *
+     * @param iconPath
+     * @param textPath
+     * @param complementPath
+     * @return
+     */
+    public InfoData addSelectionWithComplementAndIcon(int iconPath, int textPath, int complementPath) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        getFromResources(textPath),
+                        getFromResources(complementPath),
+                        false)
+        );
+        return getLastAdded();
     }
 
 
-    private void add(int resource, String text, boolean isEditable) {
-        if (current_content_value != CONTAIN_ICON_TEXT && current_content_value != CONTAIN_ICON_TEXT_ABOUT)
-            throw new NullPointerException(error);
-        else {
-            this.text.add(text);
-            this.icon.add(resource);
-            this.ocl.add(null);
-            this.isEditable.add(isEditable);
-            if(current_content_value == CONTAIN_ICON_TEXT_ABOUT)
-                this.about.add("");
-        }
+    /**
+     * Add an item to this RecyclerView adapter with an EditText(empty), a TextView(hint) and an ImageView(icon).
+     *
+     * @param iconPath
+     * @param hint
+     * @return
+     */
+    public InfoData addEditableWithIcon(int iconPath, String hint) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        hint,
+                        true)
+        );
+        return getLastAdded();
     }
 
-    private void add(String text) {
-        if (current_content_value != CONTAIN_ICON_TEXT &&
-                current_content_value != CONTAIN_ICON_TEXT_ABOUT &&
-                current_content_value != CONTAIN_ONLY_TEXT)
-            throw new NullPointerException(error);
-        else {
-            this.text.add(text);
-            this.ocl.add(null);
-            this.isEditable.add(false);
-            if(current_content_value == CONTAIN_ICON_TEXT)
-                this.icon.add(0);
-            if(current_content_value == CONTAIN_ICON_TEXT_ABOUT ) {
-                this.about.add("");
-                this.icon.add(0);
-            }
-        }
+    /**
+     * Add an item to this RecyclerView adapter with an EditText(empty), a TextView(hint) and an ImageView(icon).
+     * You need to supply the resources path instead of the value.
+     *
+     * @param iconPath
+     * @param hintPath
+     * @return
+     */
+    public InfoData addEditableWithIcon(int iconPath, int hintPath) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        getFromResources(hintPath),
+                        true)
+        );
+        return getLastAdded();
     }
 
-    public InfoHolder setOnClick(View.OnClickListener ocl) {
-        this.ocl.set(this.text.size() - 1, ocl);
-        return this;
+    /**
+     * Add an item to this RecyclerView adapter with an EditText(with text), a TextView(hint) and an ImageView(icon).
+     *
+     * @param iconPath
+     * @param text
+     * @param hint
+     * @return
+     */
+    public InfoData addEditableWithLoadedTextAndIcon(int iconPath, String text, String hint) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        hint,
+                        text,
+                        true)
+        );
+        return getLastAdded();
     }
 
-    public InfoHolder addTitle(String text) {
-        this.add(text);
-        return this;
+    /**
+     * Add an item to this RecyclerView adapter with an EditText(with text), a TextView(hint) and an ImageView(icon).
+     * You need to supply the resources path instead of the value.
+     *
+     * @param iconPath
+     * @param textPath
+     * @param hintPath
+     * @return
+     */
+    public InfoData addEditableWithLoadedTextAndIcon(int iconPath, int textPath, int hintPath) {
+        infoDatas.add(
+                new InfoData(
+                        iconPath,
+                        getFromResources(hintPath),
+                        getFromResources(textPath),
+                        true)
+        );
+        return getLastAdded();
     }
 
-    public InfoHolder addSelectionWithIcon(int iconPath, String text) {
-        this.add(iconPath, text, false);
-        return this;
+    public ArrayList<InfoData> getInfoDatas() {
+        return infoDatas;
     }
 
-    public InfoHolder addSelectionWithComplementAndIcon(int iconPath, String text, String complement) {
-        this.add(iconPath, text, complement, false);
-        return this;
+    private InfoData getLastAdded() {
+        return infoDatas.get(infoDatas.size() - 1);
     }
 
-    public InfoHolder addEditableWithIcon(int iconPath, String hint) {
-        this.add(iconPath, "", hint, true);
-        return this;
-    }
-
-    public InfoHolder addEditableWithLoadedTextAndIcon(int iconPath, String text, String hint) {
-        this.add(iconPath, text, hint, true);
-        return this;
-    }
-
-    public int getCurrent_content_value() {
-        return current_content_value;
-    }
-
-    public ArrayList<View.OnClickListener> getOcl() {
-        return ocl;
-    }
-
-    public int getSize(){
-        return text.size();
-    }
-
-    public ArrayList<String> getTextList() {
-        return text;
-    }
-
-    public ArrayList<Integer> getIcon() {
-        return icon;
-    }
-
-    public ArrayList<String> getDescription() {
-        return about;
-    }
-
-    public ArrayList<Boolean> getIsEditable() {
-        return isEditable;
+    private String getFromResources(int path){
+        return context.getResources().getString(path);
     }
 }

@@ -1,8 +1,7 @@
 package br.com.createlier.nana.nana;
 
-import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
 
-public class PillNamesActivity extends ActionBarActivity {
+public class ConnectionActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
     private TextView title;
@@ -27,11 +25,12 @@ public class PillNamesActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pillnames);
+        setContentView(R.layout.activity_connection);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         title = (TextView) toolbar.findViewById(R.id.app_bar_dynamic_title);
-        title.setText("Defina nomes");
+        title.setText("Conexão");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -55,6 +54,7 @@ public class PillNamesActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_conection, menu);
         return true;
     }
 
@@ -66,15 +66,8 @@ public class PillNamesActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_alarm_clock) {
-            startActivity(new Intent(this, AlarmActivity.class));
-        }
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        }*/
-
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -83,8 +76,12 @@ public class PillNamesActivity extends ActionBarActivity {
     private void populateList() {
         infoHolder = new InfoHolder(this);
         int DEFAULT_ICON = R.mipmap.ic_launcher;
-        for (int i=0; i < CapsuleHandler.getCapsulesSize(); i++) {
-            infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,CapsuleHandler.getCapsuleName(i),"Capsula "+i);
-        }
+
+        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+                R.string.connection_att_item,
+                R.string.connection_att_item_desc);
+        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+                R.string.connection_up_item,
+                R.string.connection_up_item_desc);
     }
 }

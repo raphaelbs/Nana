@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2">
+<items version="2" >
 
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false" revision="21.1.2" sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-c6910375e4573552cf0b13516bde4d125eedf53b.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-d6238979d758f721b7efe462fc7c9939cdf60cfe.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.github.shell-software\fab\1.0.5\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="21b7e1533326a38d45ea24d04c6acfcbf8ea33af">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-578a131c65a6c0caea3c7d56e716fe63f7d78f8a.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-d18ad7728e96af9b793ee45cbe4c11aefe86c0ba.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-c5a07ded5109460249109a82b1bb61f1e978aa4f.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.github.shell-software\fab\1.0.5\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="21b7e1533326a38d45ea24d04c6acfcbf8ea33af">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-7de8a5f4d91cc890b63e268425d61b09bc72da78.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false" revision="21.1.2" sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-45dfc61bdb0337d2436b46df9ffd183a78254668.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-0e0979118f437b8b680745f2985e7687671ea440.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.2.3\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="0a4207597233f779fc933633711517b53ae84d29">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-ccfdbd552d8393002d19f6af9cdeaad1969ca074.jar" />
+        jar="C:\Users\dede\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-18e093e0f3d7dbb1abafc0792a34a7f8c4eff203.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-0f088f21033e23f2e70547c1762e4b6afb9a6bc2.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-89e7741f98a666d25cb2fef8c9cf1c6f21544af6.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-97f7d0c01dba44c3964e841249d0130697f6257c.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.github.traex.rippleeffect\library\1.2.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0a4207597233f779fc933633711517b53ae84d29">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-eb46a81846f3ff4f4a6383afbbf24c5a456c4d39.jar" />
     </item>
     <item
-        jar="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"
-        jumboMode="false" revision="21.1.2" sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
-        <dex
-            dex="C:\Users\Raphael\Desktop\GitNana\app\build\intermediates\pre-dexed\debug\classes-5ad7cda19cdd2755e57b9e397900207078cc74b8.jar" />
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-79eddf732b7c12c8c26bd3e2f9e4f9201e31e646.jar" />
     </item>
 
 </items>

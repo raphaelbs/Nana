@@ -8,6 +8,18 @@
     <string name="action_alarm_clock">Alarmes</string>
     <string name="add_pill">Novo Alarme</string>
 
-    <string name="settings_capsules_name_division">Nomes dos Remédios</string>
+    <!-- Activity Settings Strings -->
+    <string name="settings_names_item">Nomeclatura</string>
+    <string name="settings_names_item_desc">Defina o nome dos seus remédios</string>
+    <string name="settings_connection_item">Conexão</string>
+    <string name="settings_connection_item_desc">Gerencie sua conexão</string>
+    <string name="settings_songs_item">Sons</string>
+    <string name="settings_songs_item_desc">Altere volume, tipos de som, etc...</string>
+
+    <!-- Activity Connection Strings -->
+    <string name="connection_att_item">Upload</string>
+    <string name="connection_att_item_desc">Salve as suas configurações</string>
+    <string name="connection_up_item">Download</string>
+    <string name="connection_up_item_desc">Baixe suas configurações</string>
 
 </resources>

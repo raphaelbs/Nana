@@ -35,7 +35,6 @@ public class AlarmActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         setSupportActionBar(toolbar);
 
-        infoHolder = new InfoHolder(InfoHolder.CONTAIN_ICON_TEXT_ABOUT);
         populateList();
 
         alarm_list = (RecyclerView) findViewById(R.id.alarm_recycler_view);
@@ -89,6 +88,7 @@ public class AlarmActivity extends ActionBarActivity {
     }
 
     private void populateList() {
+        infoHolder = new InfoHolder(this);
         addOnInfoHolder(7, 30, new int[]{0});
         addOnInfoHolder(8, 30, new int[]{1, 2, 3});
         addOnInfoHolder(12, 00, new int[]{4});
@@ -97,7 +97,7 @@ public class AlarmActivity extends ActionBarActivity {
 
     private void addOnInfoHolder(int hour, int min, int[] capsules){
         String time = String.format("%02d", hour) + ":" + String.format("%02d", min);
-        this.infoHolder.add(chooseResourcesFromTime(hour), time, capsules);
+        infoHolder.addAlarmSelector(chooseResourcesFromTime(hour), time, capsules);
     }
 
     private int chooseResourcesFromTime(int hour){
