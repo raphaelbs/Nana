@@ -4,8 +4,16 @@
     <string name="title_activity_alarm">Alarmes</string>
     <string name="title_activity_pill">Novo Alarme</string>
 
-    <string name="action_settings">Configurações</string>
-    <string name="action_alarm_clock">Alarmes</string>
+    <!-- Material.Builder Dialog names -->
+    <string name="material.dialog_accept">Aceitar</string>
+    <string name="material.dialog_decline">Recusar</string>
+    <string name="material.dialog_ok">Ok</string>
+    <string name="material.dialog_cancel">Cancelar</string>
+    <string name="material.dialog_confirm">Confirmar</string>
+    <string name="material.dialog_reject">Rejeitar</string>
+
+
+    <!-- Activity AddPill Strings -->
     <string name="add_pill">Novo Alarme</string>
 
     <!-- Activity Settings Strings -->
@@ -21,8 +29,33 @@
     <string name="connection_att_item_desc">Salve as suas configurações</string>
     <string name="connection_up_item">Download</string>
     <string name="connection_up_item_desc">Baixe suas configurações</string>
+
+    <!-- Activity Songs Strings -->
     <string name="title_activity_songs">SongsActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Activity PillName Strings -->
+    <string name="pillname_activity">Defina nomes</string>
+    <string name="pillname_capsule_mask">Capsula %d</string>
+
+
+
+    <!-- SharedPreferences Session -->
+    <!-- SharedPreferences Defaults -->
+    <string name="spd_pill1">Remédio 1</string>
+    <string name="spd_pill2">Remédio 2</string>
+    <string name="spd_pill3">Remédio 3</string>
+    <string name="spd_pill4">Remédio 4</string>
+    <string name="spd_pill5">Remédio 5</string>
+    <string name="spd_pill6">Remédio 6</string>
+    <string name="spd_pill7">Remédio 7</string>
+
+    <!-- SharedPreferences Keys -->
+    <string name="spk_pill1">nana_shared_preferences_key_pill1_name</string>
+    <string name="spk_pill2">nana_shared_preferences_key_pill2_name</string>
+    <string name="spk_pill3">nana_shared_preferences_key_pill3_name</string>
+    <string name="spk_pill4">nana_shared_preferences_key_pill4_name</string>
+    <string name="spk_pill5">nana_shared_preferences_key_pill5_name</string>
+    <string name="spk_pill6">nana_shared_preferences_key_pill6_name</string>
+    <string name="spk_pill7">nana_shared_preferences_key_pill7_name</string>
 
 </resources>

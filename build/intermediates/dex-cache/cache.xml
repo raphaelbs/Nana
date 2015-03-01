@@ -51,6 +51,13 @@
         <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-eb46a81846f3ff4f4a6383afbbf24c5a456c4d39.jar" />
     </item>
     <item
+        jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.afollestad\material-dialogs\0.6.3.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="183abf1fc9c73575dd4375784f7613e67efc823b">
+        <dex dex="C:\Users\dede\Desktop\Nana\app\build\intermediates\pre-dexed\debug\classes-42b3b364b5709e88c7f91b47511a6890a7a7c6fd.jar" />
+    </item>
+    <item
         jar="C:\Users\dede\Desktop\Nana\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
         jumboMode="false"
         revision="21.1.2"

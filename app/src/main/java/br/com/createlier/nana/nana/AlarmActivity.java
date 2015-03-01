@@ -1,10 +1,9 @@
 package br.com.createlier.nana.nana;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,17 +13,15 @@ import android.view.View;
 import com.software.shell.fab.ActionButton;
 
 import Utils.CapsuleHandler;
-import Utils.DividerItemDecoration;
+import Utils.PrivateDatabase;
 import recycler_handlers.InfoHolder;
-import recycler_handlers.RITAOAdapter;
 
 
-public class AlarmActivity extends ActionBarActivity {
+public class AlarmActivity extends ActionBarActivity implements PrivateDatabase{
 
     private Toolbar toolbar;
     private ActionButton actionButton;
     private RecyclerView alarm_list;
-    private InfoHolder infoHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +31,13 @@ public class AlarmActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         setSupportActionBar(toolbar);
-
-        populateList();
+        setPrivateDatabase(this);
 
         alarm_list = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         alarm_list.setHasFixedSize(true);
+        setRecyclerView(alarm_list);
 
-        alarm_list.setAdapter(new RITAOAdapter(infoHolder));
-        alarm_list.setLayoutManager(new LinearLayoutManager(this));
-        alarm_list.setItemAnimator(new DefaultItemAnimator());
+
 
         actionButton = (ActionButton) findViewById(R.id.button_add_pill);
 
@@ -66,9 +61,7 @@ public class AlarmActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
-        menu.getItem(0).setIcon(R.mipmap.ic_mode_edit);
-        menu.getItem(1).setIcon(R.mipmap.ic_bluetooth);
-        menu.getItem(2).setIcon(R.mipmap.ic_volume_up);
+
         return true;
     }
 
@@ -92,36 +85,11 @@ public class AlarmActivity extends ActionBarActivity {
 
     }
 
-    private void populateList() {
-        infoHolder = new InfoHolder(this);
-        addOnInfoHolder(7, 30, new int[]{0});
-        addOnInfoHolder(8, 30, new int[]{1, 2, 3});
-        addOnInfoHolder(12, 00, new int[]{4});
-        addOnInfoHolder(20, 30, new int[]{1, 5, 6});
-    }
-
-    private void addOnInfoHolder(int hour, int min, int[] capsules){
-        String time = String.format("%02d", hour) + ":" + String.format("%02d", min);
-        infoHolder.addAlarmSelector(chooseResourcesFromTime(hour), time, capsules);
-    }
-
-    private int chooseResourcesFromTime(int hour){
-        if(hour >= 0 && hour < 2)
-            return R.mipmap.ic_brightness_1;
-        if(hour >= 2 && hour < 4)
-            return R.mipmap.ic_brightness_4;
-        if(hour >= 4 && hour < 6)
-            return R.mipmap.ic_brightness_5;
-        if(hour >= 6 && hour < 10)
-            return R.mipmap.ic_brightness_6;
-        if(hour >= 10 && hour < 16)
-            return R.mipmap.ic_brightness_7;
-        if(hour >= 16 && hour < 19)
-            return R.mipmap.ic_brightness_4;
-        if(hour >= 19 && hour < 22)
-            return R.mipmap.ic_brightness_2;
-        if(hour >= 22 && hour < 24)
-            return R.mipmap.ic_brightness_1;
-        return 0;
+    @Override
+    public void populateList(InfoHolder infoHolder, SharedPreferences sharedPreferences) {
+        infoHolder.addAlarmSelector(7, 30, new int[]{0});
+        infoHolder.addAlarmSelector(8, 30, new int[]{1, 2, 3});
+        infoHolder.addAlarmSelector(12, 00, new int[]{4});
+        infoHolder.addAlarmSelector(20, 30, new int[]{1, 5, 6});
     }
 }

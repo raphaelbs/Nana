@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
@@ -31,7 +34,7 @@ public class PillNamesActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         title = (TextView) toolbar.findViewById(R.id.app_bar_dynamic_title);
-        title.setText("Defina nomes");
+        title.setText(R.string.pillname_activity);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -80,10 +83,22 @@ public class PillNamesActivity extends ActionBarActivity {
         infoHolder = new InfoHolder(this);
         int DEFAULT_ICON = R.mipmap.ic_launcher;
         for (int i=0; i < CapsuleHandler.getCapsulesSize(); i++) {
+            final String capsuleName = String.format(getString(R.string.pillname_capsule_mask), i);
+            final MaterialDialog.Builder md = new MaterialDialog.Builder(this)
+                    .title(capsuleName)
+                    .content(CapsuleHandler.getCapsuleName(i))
+                    .positiveText(R.string.material_dialog_ok)
+                    .negativeText(R.string.material_dialog_cancel);
             infoHolder.addSelectionWithComplementAndIcon(
                     DEFAULT_ICON,
                     CapsuleHandler.getCapsuleName(i),
-                    "Capsula "+i);
+                    capsuleName)
+            .setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    md.show();
+                }
+            });
         }
     }
 }

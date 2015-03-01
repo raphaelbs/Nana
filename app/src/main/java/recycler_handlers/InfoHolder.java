@@ -1,11 +1,11 @@
 package recycler_handlers;
 
 import android.content.Context;
-import android.view.View;
 
 import java.util.ArrayList;
 
 import Utils.CapsuleHandler;
+import br.com.createlier.nana.nana.R;
 
 /**
  * Created by dede on 22/02/2015.
@@ -30,23 +30,25 @@ public class InfoHolder {
     /**
      * Add an item inside this RecyclerView adapter that contains an ImageView(icon), TextView(time) and
      * other TextView(capsule chain name).
-     * @param resource
-     * @param text
-     * @param capsuleChain
+     *
+     * @param hour
+     * @param min
+     * @param capsules
      * @return
      */
-    public InfoData addAlarmSelector(int resource, String text, int[] capsuleChain) {
+    public InfoData addAlarmSelector(int hour, int min, int[] capsules) {
+        String time = String.format("%02d", hour) + ":" + String.format("%02d", min);
         String about = "";
-        for (int i = 0; i < capsuleChain.length; i++) {
-            about += CapsuleHandler.getCapsuleName(capsuleChain[i]);
-            if (i != capsuleChain.length - 1)
+        for (int i = 0; i < capsules.length; i++) {
+            about += CapsuleHandler.getCapsuleName(capsules[i]);
+            if (i != capsules.length - 1)
                 about += ", ";
         }
 
         infoDatas.add(
                 new InfoData(
-                        resource,
-                        text,
+                        chooseResourcesFromTime(hour),
+                        time,
                         about,
                         false)
         );
@@ -232,6 +234,26 @@ public class InfoHolder {
         return getLastAdded();
     }
 
+    private int chooseResourcesFromTime(int hour) {
+        if (hour >= 0 && hour < 2)
+            return R.mipmap.ic_brightness_1;
+        if (hour >= 2 && hour < 4)
+            return R.mipmap.ic_brightness_4;
+        if (hour >= 4 && hour < 6)
+            return R.mipmap.ic_brightness_5;
+        if (hour >= 6 && hour < 10)
+            return R.mipmap.ic_brightness_6;
+        if (hour >= 10 && hour < 16)
+            return R.mipmap.ic_brightness_7;
+        if (hour >= 16 && hour < 19)
+            return R.mipmap.ic_brightness_4;
+        if (hour >= 19 && hour < 22)
+            return R.mipmap.ic_brightness_2;
+        if (hour >= 22 && hour < 24)
+            return R.mipmap.ic_brightness_1;
+        return 0;
+    }
+
     public ArrayList<InfoData> getInfoDatas() {
         return infoDatas;
     }
@@ -240,7 +262,7 @@ public class InfoHolder {
         return infoDatas.get(infoDatas.size() - 1);
     }
 
-    private String getFromResources(int path){
+    private String getFromResources(int path) {
         return context.getResources().getString(path);
     }
 }
