@@ -1,5 +1,6 @@
 package br.com.createlier.nana.nana;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,7 +28,6 @@ public class ConnectionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         title = (TextView) toolbar.findViewById(R.id.app_bar_dynamic_title);
         title.setText("Conexão");
@@ -41,13 +41,9 @@ public class ConnectionActivity extends ActionBarActivity {
 
         populateList();
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         recyclerView.setAdapter(new RITAOAdapter(infoHolder));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, null));
     }
 
 
@@ -66,8 +62,8 @@ public class ConnectionActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
         }
 
         return super.onOptionsItemSelected(item);
@@ -75,12 +71,13 @@ public class ConnectionActivity extends ActionBarActivity {
 
     private void populateList() {
         infoHolder = new InfoHolder(this);
-        int DEFAULT_ICON = R.mipmap.ic_launcher;
 
-        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+        infoHolder.addSelectionWithComplementAndIcon(
+                R.mipmap.ic_file_upload,
                 R.string.connection_att_item,
                 R.string.connection_att_item_desc);
-        infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,
+        infoHolder.addSelectionWithComplementAndIcon(
+                R.mipmap.ic_file_download,
                 R.string.connection_up_item,
                 R.string.connection_up_item_desc);
     }

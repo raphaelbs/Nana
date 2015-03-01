@@ -43,7 +43,6 @@ public class AlarmActivity extends ActionBarActivity {
         alarm_list.setAdapter(new RITAOAdapter(infoHolder));
         alarm_list.setLayoutManager(new LinearLayoutManager(this));
         alarm_list.setItemAnimator(new DefaultItemAnimator());
-        alarm_list.addItemDecoration(new DividerItemDecoration(this, null));
 
         actionButton = (ActionButton) findViewById(R.id.button_add_pill);
 
@@ -59,7 +58,6 @@ public class AlarmActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         actionButton.startAnimation(actionButton.getShowAnimation());
-
         super.onResume();
 
     }
@@ -68,6 +66,9 @@ public class AlarmActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
+        menu.getItem(0).setIcon(R.mipmap.ic_mode_edit);
+        menu.getItem(1).setIcon(R.mipmap.ic_bluetooth);
+        menu.getItem(2).setIcon(R.mipmap.ic_volume_up);
         return true;
     }
 
@@ -80,8 +81,12 @@ public class AlarmActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (id == R.id.settings_menu_name)
+            startActivity(new Intent(this, PillNamesActivity.class));
+        if (id == R.id.settings_menu_conneciton)
+            startActivity(new Intent(this, ConnectionActivity.class));
+        if (id == R.id.settings_menu_songs)
+            startActivity(new Intent(this, SongsActivity.class));
 
         return super.onOptionsItemSelected(item);
 
@@ -101,20 +106,22 @@ public class AlarmActivity extends ActionBarActivity {
     }
 
     private int chooseResourcesFromTime(int hour){
-        if(hour >= 0 && hour < 4)
-            return R.mipmap.midnight;
+        if(hour >= 0 && hour < 2)
+            return R.mipmap.ic_brightness_1;
+        if(hour >= 2 && hour < 4)
+            return R.mipmap.ic_brightness_4;
         if(hour >= 4 && hour < 6)
-            return R.mipmap.night;
-        if(hour >= 6 && hour < 11)
-            return R.mipmap.sunrise;
+            return R.mipmap.ic_brightness_5;
+        if(hour >= 6 && hour < 10)
+            return R.mipmap.ic_brightness_6;
         if(hour >= 10 && hour < 16)
-            return R.mipmap.midday;
+            return R.mipmap.ic_brightness_7;
         if(hour >= 16 && hour < 19)
-            return R.mipmap.afternoon;
+            return R.mipmap.ic_brightness_4;
         if(hour >= 19 && hour < 22)
-            return R.mipmap.night;
+            return R.mipmap.ic_brightness_2;
         if(hour >= 22 && hour < 24)
-            return R.mipmap.midnight;
+            return R.mipmap.ic_brightness_1;
         return 0;
     }
 }

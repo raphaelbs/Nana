@@ -1618,23 +1618,24 @@ containing a value of this type.
         public static final int activity_horizontal_margin=0x7f080025;
         public static final int activity_vertical_margin=0x7f080026;
         public static final int button_elevation=0x7f080027;
-        public static final int cardview_compat_inset_shadow=0x7f080028;
-        public static final int cardview_default_elevation=0x7f080029;
-        public static final int cardview_default_radius=0x7f08002a;
-        public static final int dialog_fixed_height_major=0x7f08002b;
-        public static final int dialog_fixed_height_minor=0x7f08002c;
-        public static final int dialog_fixed_width_major=0x7f08002d;
-        public static final int dialog_fixed_width_minor=0x7f08002e;
-        public static final int disabled_alpha_material_dark=0x7f08002f;
-        public static final int disabled_alpha_material_light=0x7f080030;
-        public static final int fab_margin=0x7f080031;
-        public static final int fab_size=0x7f080032;
-        public static final int toolbar_compensation=0x7f080033;
-        public static final int toolbar_container=0x7f080034;
-        public static final int toolbar_elevation=0x7f080035;
-        public static final int toolbar_extended_container=0x7f080036;
-        public static final int toolbar_extended_size=0x7f080037;
-        public static final int toolbar_size=0x7f080038;
+        public static final int button_margin_top=0x7f080028;
+        public static final int cardview_compat_inset_shadow=0x7f080029;
+        public static final int cardview_default_elevation=0x7f08002a;
+        public static final int cardview_default_radius=0x7f08002b;
+        public static final int dialog_fixed_height_major=0x7f08002c;
+        public static final int dialog_fixed_height_minor=0x7f08002d;
+        public static final int dialog_fixed_width_major=0x7f08002e;
+        public static final int dialog_fixed_width_minor=0x7f08002f;
+        public static final int disabled_alpha_material_dark=0x7f080030;
+        public static final int disabled_alpha_material_light=0x7f080031;
+        public static final int fab_margin=0x7f080032;
+        public static final int fab_size=0x7f080033;
+        public static final int toolbar_compensation=0x7f080034;
+        public static final int toolbar_container=0x7f080035;
+        public static final int toolbar_elevation=0x7f080036;
+        public static final int toolbar_extended_container=0x7f080037;
+        public static final int toolbar_extended_size=0x7f080038;
+        public static final int toolbar_size=0x7f080039;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_holo_dark=0x7f020000;
@@ -1709,9 +1710,10 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f090034;
         public static final int action_mode_bar_stub=0x7f090033;
         public static final int action_mode_close_button=0x7f090026;
-        public static final int action_settings=0x7f090055;
+        public static final int action_settings=0x7f090059;
         public static final int activity_chooser_view_content=0x7f090027;
         public static final int alarm_recycler_view=0x7f090046;
+        public static final int alarm_row_card_view=0x7f09004d;
         public static final int always=0x7f090019;
         public static final int app_bar=0x7f090045;
         public static final int app_bar_dynamic_title=0x7f09004b;
@@ -1746,13 +1748,13 @@ containing a value of this type.
         public static final int radio=0x7f090031;
         public static final int rectangle=0x7f09001f;
         public static final int recycler_view=0x7f090048;
-        public static final int rie_edit_text=0x7f09004f;
-        public static final int rie_icon=0x7f09004e;
-        public static final int rit_icon=0x7f090050;
-        public static final int rit_text=0x7f090051;
-        public static final int rita_about=0x7f090054;
-        public static final int rita_icon=0x7f090052;
-        public static final int rita_text=0x7f090053;
+        public static final int rie_edit_text=0x7f090050;
+        public static final int rie_icon=0x7f09004f;
+        public static final int rit_icon=0x7f090051;
+        public static final int rit_text=0x7f090052;
+        public static final int rita_about=0x7f090055;
+        public static final int rita_icon=0x7f090053;
+        public static final int rita_text=0x7f090054;
         public static final int search_badge=0x7f09003b;
         public static final int search_bar=0x7f09003a;
         public static final int search_button=0x7f09003c;
@@ -1764,6 +1766,9 @@ containing a value of this type.
         public static final int search_src_text=0x7f090040;
         public static final int search_voice_btn=0x7f090044;
         public static final int settings_capsules_name_rv=0x7f090049;
+        public static final int settings_menu_conneciton=0x7f090057;
+        public static final int settings_menu_name=0x7f090056;
+        public static final int settings_menu_songs=0x7f090058;
         public static final int shadow=0x7f09004c;
         public static final int shortcut=0x7f090030;
         public static final int showCustom=0x7f09000f;
@@ -1774,7 +1779,7 @@ containing a value of this type.
         public static final int submit_area=0x7f090042;
         public static final int tabMode=0x7f09000b;
         public static final int title=0x7f09002d;
-        public static final int title_row_text=0x7f09004d;
+        public static final int title_row_text=0x7f09004e;
         public static final int toolbar_app=0x7f09004a;
         public static final int up=0x7f090008;
         public static final int useLogo=0x7f090012;
@@ -1813,31 +1818,39 @@ containing a value of this type.
         public static final int activity_connection=0x7f040019;
         public static final int activity_pillnames=0x7f04001a;
         public static final int activity_settings=0x7f04001b;
-        public static final int app_bar=0x7f04001c;
-        public static final int app_bar_extended=0x7f04001d;
-        public static final int row_divisor_text=0x7f04001e;
-        public static final int row_icon_editable=0x7f04001f;
-        public static final int row_icon_text=0x7f040020;
-        public static final int row_icon_text_about=0x7f040021;
-        public static final int support_simple_spinner_dropdown_item=0x7f040022;
+        public static final int activity_songs=0x7f04001c;
+        public static final int app_bar=0x7f04001d;
+        public static final int app_bar_extended=0x7f04001e;
+        public static final int row_divisor_text=0x7f04001f;
+        public static final int row_icon_editable=0x7f040020;
+        public static final int row_icon_text=0x7f040021;
+        public static final int row_icon_text_about=0x7f040022;
+        public static final int support_simple_spinner_dropdown_item=0x7f040023;
     }
     public static final class menu {
         public static final int menu_alarm=0x7f0d0000;
         public static final int menu_conection=0x7f0d0001;
         public static final int menu_pill=0x7f0d0002;
-        public static final int menu_settings=0x7f0d0003;
+        public static final int menu_songs=0x7f0d0003;
     }
     public static final class mipmap {
         public static final int add_pill=0x7f030000;
-        public static final int afternoon=0x7f030001;
-        public static final int alarm_clock=0x7f030002;
-        public static final int ic_launcher=0x7f030003;
-        public static final int icon=0x7f030004;
-        public static final int midday=0x7f030005;
-        public static final int midnight=0x7f030006;
-        public static final int night=0x7f030007;
-        public static final int settings=0x7f030008;
-        public static final int sunrise=0x7f030009;
+        public static final int alarm_clock=0x7f030001;
+        public static final int ic_bluetooth=0x7f030002;
+        public static final int ic_brightness_1=0x7f030003;
+        public static final int ic_brightness_2=0x7f030004;
+        public static final int ic_brightness_3=0x7f030005;
+        public static final int ic_brightness_4=0x7f030006;
+        public static final int ic_brightness_5=0x7f030007;
+        public static final int ic_brightness_6=0x7f030008;
+        public static final int ic_brightness_7=0x7f030009;
+        public static final int ic_file_download=0x7f03000a;
+        public static final int ic_file_upload=0x7f03000b;
+        public static final int ic_launcher=0x7f03000c;
+        public static final int ic_mode_edit=0x7f03000d;
+        public static final int ic_volume_up=0x7f03000e;
+        public static final int icon=0x7f03000f;
+        public static final int settings=0x7f030010;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0b0000;
@@ -1864,15 +1877,17 @@ containing a value of this type.
         public static final int connection_att_item_desc=0x7f0b0015;
         public static final int connection_up_item=0x7f0b0016;
         public static final int connection_up_item_desc=0x7f0b0017;
-        public static final int settings_connection_item=0x7f0b0018;
-        public static final int settings_connection_item_desc=0x7f0b0019;
-        public static final int settings_names_item=0x7f0b001a;
-        public static final int settings_names_item_desc=0x7f0b001b;
-        public static final int settings_songs_item=0x7f0b001c;
-        public static final int settings_songs_item_desc=0x7f0b001d;
-        public static final int title_activity_alarm=0x7f0b001e;
-        public static final int title_activity_pill=0x7f0b001f;
-        public static final int title_activity_settings=0x7f0b0020;
+        public static final int hello_world=0x7f0b0018;
+        public static final int settings_connection_item=0x7f0b0019;
+        public static final int settings_connection_item_desc=0x7f0b001a;
+        public static final int settings_names_item=0x7f0b001b;
+        public static final int settings_names_item_desc=0x7f0b001c;
+        public static final int settings_songs_item=0x7f0b001d;
+        public static final int settings_songs_item_desc=0x7f0b001e;
+        public static final int title_activity_alarm=0x7f0b001f;
+        public static final int title_activity_pill=0x7f0b0020;
+        public static final int title_activity_settings=0x7f0b0021;
+        public static final int title_activity_songs=0x7f0b0022;
     }
     public static final class style {
         /**  Customize your theme here. 

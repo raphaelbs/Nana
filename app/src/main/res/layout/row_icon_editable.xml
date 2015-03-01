@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alarm_row_card_view"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:orientation="horizontal">
+    android:layout_gravity="center"
+    android:elevation="2dp"
+    android:padding="0dp"
+    card_view:cardCornerRadius="4dp">
 
-    <ImageView
-        android:id="@+id/rie_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/ic_launcher" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:padding="0dp">
 
-    <EditText
-        android:id="@+id/rie_edit_text"
-        android:layout_width="290dp"
-        android:fontFamily="sans-serif"
-        android:textSize="16sp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:text="teste"
-        android:layout_marginLeft="72dp"
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/rie_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_launcher" />
+
+        <EditText
+            android:id="@+id/rie_edit_text"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="72dp"
+            android:fontFamily="sans-serif"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:text="teste"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

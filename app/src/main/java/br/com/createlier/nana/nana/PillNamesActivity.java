@@ -42,13 +42,9 @@ public class PillNamesActivity extends ActionBarActivity {
 
         populateList();
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         recyclerView.setAdapter(new RITAOAdapter(infoHolder));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, null));
     }
 
 
@@ -84,7 +80,10 @@ public class PillNamesActivity extends ActionBarActivity {
         infoHolder = new InfoHolder(this);
         int DEFAULT_ICON = R.mipmap.ic_launcher;
         for (int i=0; i < CapsuleHandler.getCapsulesSize(); i++) {
-            infoHolder.addSelectionWithComplementAndIcon(DEFAULT_ICON,CapsuleHandler.getCapsuleName(i),"Capsula "+i);
+            infoHolder.addSelectionWithComplementAndIcon(
+                    DEFAULT_ICON,
+                    CapsuleHandler.getCapsuleName(i),
+                    "Capsula "+i);
         }
     }
 }

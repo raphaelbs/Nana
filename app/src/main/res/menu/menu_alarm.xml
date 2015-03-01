@@ -4,9 +4,23 @@
     tools:context="br.com.createlier.nana.nana.AlarmActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@mipmap/settings"
+        android:id="@+id/settings_menu_name"
+        android:orderInCategory="100"
+        android:icon="@mipmap/ic_mode_edit"
+        android:title="@string/settings_names_item"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/settings_menu_conneciton"
         android:orderInCategory="200"
-        android:title="@string/action_settings"
-        app:showAsAction="always" />
+        android:icon="@mipmap/ic_bluetooth"
+        android:title="@string/settings_connection_item"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/settings_menu_songs"
+        android:orderInCategory="300"
+        android:icon="@mipmap/ic_volume_up"
+        android:title="@string/settings_songs_item"
+        app:showAsAction="never"/>
 </menu>

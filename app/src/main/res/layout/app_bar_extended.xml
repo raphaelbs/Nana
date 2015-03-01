@@ -10,7 +10,8 @@
         android:layout_height="@dimen/toolbar_extended_size"
         android:background="@color/primaryColor"
         app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-        app:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:theme="@style/Theme.AppCompat.NoActionBar"
+        android:elevation="6dp"
         app:titleTextAppearance="@style/ToolBarTheme">
 
 

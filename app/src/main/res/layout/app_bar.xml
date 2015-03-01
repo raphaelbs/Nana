@@ -8,9 +8,10 @@
         android:id="@+id/toolbar_app"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_size"
+        android:elevation="6dp"
         android:background="@color/primaryColor"
         app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-        app:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        app:theme="@style/Theme.AppCompat.NoActionBar"
         app:titleTextAppearance="@style/ToolBarTheme">
 
         <TextView

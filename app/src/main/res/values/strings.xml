@@ -21,5 +21,8 @@
     <string name="connection_att_item_desc">Salve as suas configurações</string>
     <string name="connection_up_item">Download</string>
     <string name="connection_up_item_desc">Baixe suas configurações</string>
+    <string name="title_activity_songs">SongsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
