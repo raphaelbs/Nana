@@ -1,11 +1,13 @@
 package br.com.createlier.nana.nana;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,11 +15,11 @@ import android.view.View;
 import com.software.shell.fab.ActionButton;
 
 import Utils.CapsuleHandler;
-import Utils.PrivateDatabase;
+import Utils.NanaActivity;
 import recycler_handlers.InfoHolder;
 
 
-public class AlarmActivity extends ActionBarActivity implements PrivateDatabase{
+public class AlarmActivity extends NanaActivity{
 
     private Toolbar toolbar;
     private ActionButton actionButton;
@@ -27,7 +29,6 @@ public class AlarmActivity extends ActionBarActivity implements PrivateDatabase{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
-        CapsuleHandler.Fill();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_app);
         setSupportActionBar(toolbar);
@@ -36,8 +37,6 @@ public class AlarmActivity extends ActionBarActivity implements PrivateDatabase{
         alarm_list = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         alarm_list.setHasFixedSize(true);
         setRecyclerView(alarm_list);
-
-
 
         actionButton = (ActionButton) findViewById(R.id.button_add_pill);
 
@@ -83,6 +82,13 @@ public class AlarmActivity extends ActionBarActivity implements PrivateDatabase{
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public void manageDatabase(SharedPreferences sharedPreferences, SharedPreferences.Editor editor) {
+        CapsuleHandler.Fill(getResources(),sharedPreferences);
+        editor.putString(getResources().getString(R.string.spk_pill1),"Omeprazol");
+        editor.commit();
     }
 
     @Override
