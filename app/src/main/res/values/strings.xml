@@ -40,22 +40,13 @@
 
 
     <!-- SharedPreferences Session -->
-    <!-- SharedPreferences Defaults -->
-    <string name="spd_pill1">Remédio 1</string>
-    <string name="spd_pill2">Remédio 2</string>
-    <string name="spd_pill3">Remédio 3</string>
-    <string name="spd_pill4">Remédio 4</string>
-    <string name="spd_pill5">Remédio 5</string>
-    <string name="spd_pill6">Remédio 6</string>
-    <string name="spd_pill7">Remédio 7</string>
-
     <!-- SharedPreferences Keys -->
-    <string name="spk_pill1">nana_shared_preferences_key_pill1_name</string>
-    <string name="spk_pill2">nana_shared_preferences_key_pill2_name</string>
-    <string name="spk_pill3">nana_shared_preferences_key_pill3_name</string>
-    <string name="spk_pill4">nana_shared_preferences_key_pill4_name</string>
-    <string name="spk_pill5">nana_shared_preferences_key_pill5_name</string>
-    <string name="spk_pill6">nana_shared_preferences_key_pill6_name</string>
-    <string name="spk_pill7">nana_shared_preferences_key_pill7_name</string>
+    <string name="shared_pill_name_1">Remédio 1</string>
+    <string name="shared_pill_name_2">Remédio 2</string>
+    <string name="shared_pill_name_3">Remédio 3</string>
+    <string name="shared_pill_name_4">Remédio 4</string>
+    <string name="shared_pill_name_5">Remédio 5</string>
+    <string name="shared_pill_name_6">Remédio 6</string>
+    <string name="shared_pill_name_7">Remédio 7</string>
 
 </resources>

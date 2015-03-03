@@ -1,5 +1,6 @@
 package br.com.createlier.nana.nana;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -10,22 +11,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import Utils.CapsuleHandler;
 import Utils.DividerItemDecoration;
+import Utils.NanaActivity;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
 
-public class PillNamesActivity extends ActionBarActivity {
+public class PillNamesActivity extends NanaActivity {
 
     private Toolbar toolbar;
     private TextView title;
     private RecyclerView recyclerView;
-    private InfoHolder infoHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,8 @@ public class PillNamesActivity extends ActionBarActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
-
-        populateList();
-
-        recyclerView.setAdapter(new RITAOAdapter(infoHolder));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        setPrivateDatabase("AlarmDatabase", this);
+        setRecyclerView(recyclerView);
     }
 
 
@@ -79,26 +78,45 @@ public class PillNamesActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void populateList() {
-        infoHolder = new InfoHolder(this);
+
+    @Override
+    public void populateList(InfoHolder infoHolder) {
         int DEFAULT_ICON = R.mipmap.ic_launcher;
-        for (int i=0; i < CapsuleHandler.getCapsulesSize(); i++) {
-            final String capsuleName = String.format(getString(R.string.pillname_capsule_mask), i);
-            final MaterialDialog.Builder md = new MaterialDialog.Builder(this)
+
+        for (int i = 0; i < CapsuleHandler.getCapsulesSize(); i++) {
+
+            final String capsuleName = String.format(getString(R.string.pillname_capsule_mask), i+1);
+
+            final MaterialDialog md = new MaterialDialog.Builder(this)
                     .title(capsuleName)
-                    .content(CapsuleHandler.getCapsuleName(i))
+                    .customView(R.layout.editable_dialog, true)
                     .positiveText(R.string.material_dialog_ok)
-                    .negativeText(R.string.material_dialog_cancel);
+                    .negativeText(R.string.material_dialog_cancel)
+                    .callback(new MaterialDialog.ButtonCallback() {
+                        @Override
+                        public void onPositive(MaterialDialog dialog) {
+                            EditText field = (EditText) dialog.getCustomView().findViewById(R.id.ed_text);
+                            int capsuleNumber = ((int)capsuleName.charAt(capsuleName.length()-1))-49;
+                        }
+                    }).build();
+
             infoHolder.addSelectionWithComplementAndIcon(
                     DEFAULT_ICON,
                     CapsuleHandler.getCapsuleName(i),
                     capsuleName)
-            .setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    md.show();
-                }
-            });
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            md.show();
+                            EditText field = (EditText) md.getCustomView().findViewById(R.id.ed_text);
+                            int capsuleNumber = ((int)capsuleName.charAt(capsuleName.length()-1))-49;
+                            field.setText(CapsuleHandler.getCapsuleName(capsuleNumber));
+                        }
+                    });
         }
+    }
+
+    @Override
+    public void manageDatabase() {
     }
 }

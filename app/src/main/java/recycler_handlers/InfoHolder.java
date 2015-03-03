@@ -20,11 +20,11 @@ public class InfoHolder {
             "Try to change the CONTENT_VALUE parameter inside the InfoHolder constructor or " +
             "use a different type of InfoHolder.add() method.";
     private ArrayList<InfoData> infoDatas;
-    private Context context;
+    private Context mContext;
 
     public InfoHolder(Context context) {
-        this.context = context;
         this.infoDatas = new ArrayList<InfoData>();
+        this.mContext = context;
     }
 
     /**
@@ -263,6 +263,6 @@ public class InfoHolder {
     }
 
     private String getFromResources(int path) {
-        return context.getResources().getString(path);
+        return mContext.getResources().getString(path);
     }
 }
