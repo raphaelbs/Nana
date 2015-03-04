@@ -258,6 +258,10 @@ public class InfoHolder {
         return infoDatas;
     }
 
+    public void setTextInfoData(int position, String text){
+        infoDatas.get(position).setMainText(text);
+    }
+
     private InfoData getLastAdded() {
         return infoDatas.get(infoDatas.size() - 1);
     }

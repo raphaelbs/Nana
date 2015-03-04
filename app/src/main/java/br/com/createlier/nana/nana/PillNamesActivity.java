@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,7 @@ public class PillNamesActivity extends NanaActivity {
 
     private Toolbar toolbar;
     private TextView title;
-    private RecyclerView recyclerView;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,10 @@ public class PillNamesActivity extends NanaActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
-        setPrivateDatabase("AlarmDatabase", this);
-        setRecyclerView(recyclerView);
+        setPrivateDatabase("AlarmDatabase");
+        setRecyclerView(mRecyclerView);
     }
 
 
@@ -80,7 +81,7 @@ public class PillNamesActivity extends NanaActivity {
 
 
     @Override
-    public void populateList(InfoHolder infoHolder) {
+    public void populateList(final InfoHolder infoHolder) {
         int DEFAULT_ICON = R.mipmap.ic_launcher;
 
         for (int i = 0; i < CapsuleHandler.getCapsulesSize(); i++) {
@@ -97,6 +98,7 @@ public class PillNamesActivity extends NanaActivity {
                         public void onPositive(MaterialDialog dialog) {
                             EditText field = (EditText) dialog.getCustomView().findViewById(R.id.ed_text);
                             int capsuleNumber = ((int)capsuleName.charAt(capsuleName.length()-1))-49;
+                            updateData(capsuleNumber, field.getText().toString(), infoHolder);
                         }
                     }).build();
 
@@ -118,5 +120,12 @@ public class PillNamesActivity extends NanaActivity {
 
     @Override
     public void manageDatabase() {
+    }
+
+    final private void updateData(int position, String value, InfoHolder infoHolder){
+        setInDatabase(CapsuleHandler.getKey(position),value);
+        CapsuleHandler.setCapsule(position,value);
+        infoHolder.setTextInfoData(position,value);
+        notifyAdapterItemChanged(position);
     }
 }

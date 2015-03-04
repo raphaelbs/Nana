@@ -34,19 +34,19 @@ public final class CapsuleHandler {
     }
 
     public static int getKey(int pos){
-        if (pos == 1)
+        if (pos == 0)
             return R.string.shared_pill_name_1;
-        if (pos == 2)
+        if (pos == 1)
             return R.string.shared_pill_name_2;
-        if (pos == 3)
+        if (pos == 2)
             return R.string.shared_pill_name_3;
-        if (pos == 4)
+        if (pos == 3)
             return R.string.shared_pill_name_4;
-        if (pos == 5)
+        if (pos == 4)
             return R.string.shared_pill_name_5;
-        if (pos == 6)
+        if (pos == 5)
             return R.string.shared_pill_name_6;
-        if (pos == 7)
+        if (pos == 6)
             return R.string.shared_pill_name_7;
         return 0;
     }

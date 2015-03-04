@@ -59,6 +59,10 @@ public class InfoData {
         return mainText;
     }
 
+    public void setMainText(String mainText) {
+        this.mainText = mainText;
+    }
+
     public String getOptionalText() {
         return optionalText;
     }

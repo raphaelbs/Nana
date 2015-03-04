@@ -19,66 +19,69 @@ abstract public class NanaActivity extends ActionBarActivity {
 
     private SharedPreferences mSharedPreferences;
     private InfoHolder mInfoHolder;
-    private Activity mActivity;
     private RecyclerView mRecyclerView;
     private DividerItemDecoration mDividerItemDecoration;
     private SharedPreferences.Editor mEditor;
 
-    abstract public void populateList(InfoHolder infoHolder);
+    abstract protected void populateList(InfoHolder infoHolder);
 
-    abstract public void manageDatabase();
+    abstract protected void manageDatabase();
 
-    /**
-     * Call this method only in the mainActivity Class.
-     * @param activity
-     */
-    public void setPrivateDatabase(String name, Activity activity) {
-        this.mActivity = activity;
-        this.mInfoHolder = new InfoHolder(activity);
-        this.mSharedPreferences = activity.getSharedPreferences(name, Context.MODE_PRIVATE);
+    final protected void setPrivateDatabase(String name) {
+        this.mInfoHolder = new InfoHolder(this);
+        this.mSharedPreferences = this.getSharedPreferences(name, Context.MODE_PRIVATE);
         this.mEditor = this.mSharedPreferences.edit();
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    /**
+     * Bind the @mRecyclerView with an new InfoHolder.
+     * Do not forget to assign the @mRecyclerView with a valid inflated RecyclerView.
+     */
+    final protected void setRecyclerView(RecyclerView recyclerView) {
         manageDatabase();
-        mEditor.commit();
         populateList(this.mInfoHolder);
         mRecyclerView = recyclerView;
-        recyclerView.setAdapter(new RITAOAdapter(this.mInfoHolder));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.mActivity));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(new RITAOAdapter(this.mInfoHolder));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    public void setDecorationInRecyclerView(boolean enabled) {
+    final protected void notifyAdapterItemChanged(int position){
+        mRecyclerView.getAdapter().notifyItemChanged(position);
+    }
+
+    final protected void setDecorationInRecyclerView(boolean enabled) {
         mDividerItemDecoration = new DividerItemDecoration(
-                mActivity.getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha));
+                this.getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha));
         if (enabled)
             mRecyclerView.addItemDecoration(mDividerItemDecoration);
         else
             mRecyclerView.removeItemDecoration(mDividerItemDecoration);
     }
 
-    public String getFromDatabase(final int key, final int defaultValue){
+    final protected String getFromDatabase(final int key, final int defaultValue){
         return mSharedPreferences.getString(
-                mActivity.getResources().getString(key), mActivity.getResources().getString(defaultValue));
+                this.getResources().getString(key), this.getResources().getString(defaultValue));
     }
 
-    public String getFromDatabase(final int key){
+    final protected String getFromDatabase(final int key){
         return mSharedPreferences.getString(
-                mActivity.getResources().getString(key), mActivity.getResources().getString(key));
+                this.getResources().getString(key), this.getResources().getString(key));
     }
 
-    public String getFromDatabase(final int key, final String defaultValue){
+    final protected String getFromDatabase(final int key, final String defaultValue){
         return mSharedPreferences.getString(
-                mActivity.getResources().getString(key), defaultValue);
+                this.getResources().getString(key), defaultValue);
     }
 
-    public void setInDatabase(final int key, final String value){
-        mEditor.putString(mActivity.getResources().getString(key),value);
+    final protected void setInDatabase(final int key, final String value){
+        mEditor.putString(this.getResources().getString(key),value);
+        mEditor.commit();
     }
 
-    public void setInDatabase(final String key, final String value){
+    final protected void setInDatabase(final String key, final String value){
         mEditor.putString(key,value);
+        mEditor.commit();
     }
 
 }

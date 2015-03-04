@@ -17,10 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PillActivity"
-            android:label="@string/title_activity_pill"
-            android:parentActivityName=".AlarmActivity" />
-        <activity
             android:name=".PillNamesActivity"
             android:label=""
             android:parentActivityName=".AlarmActivity" />
