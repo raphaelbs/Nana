@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:layout_centerHorizontal="true">
+
+    <ImageView
+        android:id="@+id/fps_pill1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="60dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="120dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="180dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill6"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="90dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/fps_pill7"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="150dp"
+        android:src="@drawable/ic_launcher" />
+
+</RelativeLayout>

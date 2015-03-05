@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.software.shell.fab.ActionButton;
@@ -62,24 +66,45 @@ public class AlarmActivity extends NanaActivity {
                 actionButton.hide();
                 md.show();
 
+                final TextView hourShower = (TextView) md.findViewById(R.id.timeTextHolder);
+                final TextView nextButton = (TextView) md.findViewById(R.id.nextScreen);
+
+                final RelativeLayout parent = (RelativeLayout) md.findViewById(R.id.contentHolder);
+                parent.removeAllViews();
+                getLayoutInflater().inflate(R.layout.fragment_time_picker,parent);
+
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        parent.removeAllViews();
+                        getLayoutInflater().inflate(R.layout.fragment_pill_selector,parent);
+                    }
+                });
+
                 final int MINUTES_INTERVAL = 5;
 
                 TimePicker timePicker = (TimePicker) md.findViewById(R.id.timePicker);
                 timePicker.setIs24HourView(true);
-                timePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                timePicker.setCurrentHour(hourOfDay);
 
-                NumberPicker minutes = (NumberPicker) ((ViewGroup) timePicker.getChildAt(0)).getChildAt(1);
-                minutes.setMaxValue(3);
+                NumberPicker minutes = (NumberPicker)((ViewGroup)((ViewGroup)timePicker.getChildAt(0)).getChildAt(0)).getChildAt(2);
+                String[] minutesInterval = returnMinutes(5);
+                minutes.setMaxValue(minutesInterval.length-1);
                 minutes.setMinValue(0);
                 minutes.setWrapSelectorWheel(true);
-                minutes.setDisplayedValues(returnMinutes(MINUTES_INTERVAL));
+                minutes.setDisplayedValues(minutesInterval);
+                minutes.setValue(0);
+                hourShower.setText(hourOfDay + ":" + "00");
 
                 timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
                     @Override
                     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                        ((TextView) findViewById(R.id.timeTextHolder)).setText(hourOfDay + ":" + String.format("%02d", minute * MINUTES_INTERVAL));
+                        hourShower.setText(hourOfDay + ":" + String.format("%02d", minute * MINUTES_INTERVAL));
                     }
                 });
+
+
             }
         });
     }
