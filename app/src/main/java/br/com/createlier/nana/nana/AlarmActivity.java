@@ -1,5 +1,6 @@
 package br.com.createlier.nana.nana;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,21 +10,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.software.shell.fab.ActionButton;
 
-import java.util.Calendar;
-
 import Utils.CapsuleHandler;
 import Utils.NanaActivity;
+import Utils.PillSelectorManager;
+import Utils.TimePickerManager;
 import recycler_handlers.InfoHolder;
 
 
@@ -32,6 +28,8 @@ public class AlarmActivity extends NanaActivity {
     private Toolbar toolbar;
     private ActionButton actionButton;
     private RecyclerView mRecyclerView;
+    private PillSelectorManager psm;
+    private MaterialDialog md;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +40,13 @@ public class AlarmActivity extends NanaActivity {
         setSupportActionBar(toolbar);
         setPrivateDatabase("AlarmDatabase");
 
+        final Activity main = this;
+
         mRecyclerView = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         setRecyclerView(mRecyclerView);
 
         actionButton = (ActionButton) findViewById(R.id.button_add_pill);
-
-        final MaterialDialog md = new MaterialDialog.Builder(this)
-                .customView(R.layout.dialog_add_pill, true)
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        actionButton.startAnimation(actionButton.getShowAnimation());
-                        actionButton.show();
-                    }
-                })
-                .build();
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,45 +55,28 @@ public class AlarmActivity extends NanaActivity {
                 actionButton.hide();
                 md.show();
 
-                final TextView hourShower = (TextView) md.findViewById(R.id.timeTextHolder);
                 final TextView nextButton = (TextView) md.findViewById(R.id.nextScreen);
+                nextButton.setText(R.string.material_dialog_next);
 
                 final RelativeLayout parent = (RelativeLayout) md.findViewById(R.id.contentHolder);
                 parent.removeAllViews();
-                getLayoutInflater().inflate(R.layout.fragment_time_picker,parent);
+                getLayoutInflater().inflate(R.layout.fragment_time_picker, parent);
+
+                final RelativeLayout supremeParent = (RelativeLayout) md.findViewById(R.id.supremeParent);
+                TimePickerManager timePickerManager = new TimePickerManager(supremeParent, 5);
+                timePickerManager.build();
 
                 nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         parent.removeAllViews();
-                        getLayoutInflater().inflate(R.layout.fragment_pill_selector,parent);
+                        getLayoutInflater().inflate(R.layout.fragment_pill_selector, parent);
+
+                        psm = new PillSelectorManager();
+                        psm.defineParentView(supremeParent).defineActivity(main);
+                        psm.build();
                     }
                 });
-
-                final int MINUTES_INTERVAL = 5;
-
-                TimePicker timePicker = (TimePicker) md.findViewById(R.id.timePicker);
-                timePicker.setIs24HourView(true);
-                final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                timePicker.setCurrentHour(hourOfDay);
-
-                NumberPicker minutes = (NumberPicker)((ViewGroup)((ViewGroup)timePicker.getChildAt(0)).getChildAt(0)).getChildAt(2);
-                String[] minutesInterval = returnMinutes(5);
-                minutes.setMaxValue(minutesInterval.length-1);
-                minutes.setMinValue(0);
-                minutes.setWrapSelectorWheel(true);
-                minutes.setDisplayedValues(minutesInterval);
-                minutes.setValue(0);
-                hourShower.setText(hourOfDay + ":" + "00");
-
-                timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-                    @Override
-                    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                        hourShower.setText(hourOfDay + ":" + String.format("%02d", minute * MINUTES_INTERVAL));
-                    }
-                });
-
-
             }
         });
     }
@@ -140,47 +112,33 @@ public class AlarmActivity extends NanaActivity {
     @Override
     public void manageDatabase() {
         CapsuleHandler.newList();
-        CapsuleHandler.setCapsule(0,
-                getFromDatabase(R.string.shared_pill_name_1));
-        CapsuleHandler.setCapsule(1,
-                getFromDatabase(R.string.shared_pill_name_2));
-        CapsuleHandler.setCapsule(2,
-                getFromDatabase(R.string.shared_pill_name_3));
-        CapsuleHandler.setCapsule(3,
-                getFromDatabase(R.string.shared_pill_name_4));
-        CapsuleHandler.setCapsule(4,
-                getFromDatabase(R.string.shared_pill_name_5));
-        CapsuleHandler.setCapsule(5,
-                getFromDatabase(R.string.shared_pill_name_6));
-        CapsuleHandler.setCapsule(6,
-                getFromDatabase(R.string.shared_pill_name_7));
+        for (int i = 0; i < 7; i++)
+            CapsuleHandler.setCapsule(i,
+                    getFromDatabase(CapsuleHandler.getKey(i)));
     }
 
     @Override
-    public void populateList(InfoHolder infoHolder) {
+    public void populateList(final InfoHolder infoHolder) {
         infoHolder.addAlarmSelector(7, 30, new int[]{0});
         infoHolder.addAlarmSelector(8, 30, new int[]{1, 2, 3});
         infoHolder.addAlarmSelector(12, 00, new int[]{4});
         infoHolder.addAlarmSelector(20, 30, new int[]{1, 5, 6});
-    }
 
-    /**
-     * Generate a array of minutes to feed into the TimePicker.
-     * If the 60 % interval != 0, then the interval is set to 1.
-     *
-     * @param interval
-     * @return
-     */
-    private String[] returnMinutes(int interval) {
-        String[] array = {};
-        if (interval > 0 && interval < 60 && 60 % interval == 0)
-            array = new String[60 / interval];
-        else {
-            array = new String[60];
-            interval = 1;
-        }
-        for (int i = 0; i < array.length; i++)
-            array[i] = (i * interval) + "";
-        return array;
+        md = new MaterialDialog.Builder(this)
+                .customView(R.layout.dialog_add_pill, true)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        actionButton.startAnimation(actionButton.getShowAnimation());
+                        actionButton.show();
+
+                        try {
+                            infoHolder.addInfoData(psm.getInfoData());
+                        } catch (Exception e) {
+                            Log.e("ERROR", e + "");
+                        }
+                    }
+                })
+                .build();
     }
 }

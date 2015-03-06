@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import Utils.CapsuleHandler;
-import br.com.createlier.nana.nana.R;
+import Utils.Utils;
 
 /**
  * Created by dede on 22/02/2015.
@@ -47,7 +47,7 @@ public class InfoHolder {
 
         infoDatas.add(
                 new InfoData(
-                        chooseResourcesFromTime(hour),
+                        Utils.chooseResourcesFromTime(hour),
                         time,
                         about,
                         false)
@@ -234,31 +234,22 @@ public class InfoHolder {
         return getLastAdded();
     }
 
-    private int chooseResourcesFromTime(int hour) {
-        if (hour >= 0 && hour < 2)
-            return R.mipmap.ic_brightness_1;
-        if (hour >= 2 && hour < 4)
-            return R.mipmap.ic_brightness_4;
-        if (hour >= 4 && hour < 6)
-            return R.mipmap.ic_brightness_5;
-        if (hour >= 6 && hour < 10)
-            return R.mipmap.ic_brightness_6;
-        if (hour >= 10 && hour < 16)
-            return R.mipmap.ic_brightness_7;
-        if (hour >= 16 && hour < 19)
-            return R.mipmap.ic_brightness_4;
-        if (hour >= 19 && hour < 22)
-            return R.mipmap.ic_brightness_2;
-        if (hour >= 22 && hour < 24)
-            return R.mipmap.ic_brightness_1;
-        return 0;
+    /**
+     * Add a defined version of an InfoData.
+     *
+     * @param infoData
+     * @return
+     */
+    public InfoData addInfoData(InfoData infoData) {
+        infoDatas.add(infoData);
+        return getLastAdded();
     }
 
     public ArrayList<InfoData> getInfoDatas() {
         return infoDatas;
     }
 
-    public void setTextInfoData(int position, String text){
+    public void setTextInfoData(int position, String text) {
         infoDatas.get(position).setMainText(text);
     }
 

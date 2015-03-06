@@ -1,7 +1,6 @@
 package recycler_handlers;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +73,7 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
                 holder.about.setText(current.getOptionalText());
                 break;
         }
-        if(current.haveAction())
+        if (current.haveAction())
             holder.setClickListener(current.getOnClickListener());
     }
 
@@ -83,6 +82,9 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
         return list.getInfoDatas().size();
     }
 
+    public InfoHolder getList() {
+        return list;
+    }
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder {
         public ImageView icon;

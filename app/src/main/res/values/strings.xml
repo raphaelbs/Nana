@@ -11,7 +11,9 @@
     <string name="material.dialog_cancel">Cancelar</string>
     <string name="material.dialog_confirm">Confirmar</string>
     <string name="material.dialog_reject">Rejeitar</string>
-
+    <string name="material.dialog_next">Próximo</string>
+    <string name="material.dialog_finish">Finalizar</string>
+    <string name="material.dialog_add">Adicionar</string>
 
     <!-- Activity AddPill Strings -->
     <string name="add_pill">Novo Alarme</string>
@@ -36,7 +38,6 @@
     <!-- Activity PillName Strings -->
     <string name="pillname_activity">Defina nomes</string>
     <string name="pillname_capsule_mask">Capsula %d</string>
-
 
 
     <!-- SharedPreferences Session -->

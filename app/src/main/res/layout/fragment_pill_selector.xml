@@ -1,59 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:layout_centerHorizontal="true">
+    android:layout_centerHorizontal="true"
+    android:paddingBottom="0dp"
+    android:paddingTop="10dp">
 
-    <ImageView
-        android:id="@+id/fps_pill1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_launcher" />
+    <TextView
+        android:id="@+id/fpsAboutText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:alpha="0.87"
+        android:paddingBottom="10dp"
+        android:text="default about message"
+        android:textColor="@color/primaryText"
+        android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/fps_pill2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="60dp"
-        android:src="@drawable/ic_launcher" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_below="@id/fpsAboutText"
+        android:layout_centerHorizontal="true">
 
-    <ImageView
-        android:id="@+id/fps_pill3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="120dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/fps_pill4"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="180dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/fps_pill5"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="30dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/fps_pill6"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="90dp"
-        android:src="@drawable/ic_launcher" />
-
-    <ImageView
-        android:id="@+id/fps_pill7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="150dp"
-        android:src="@drawable/ic_launcher" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/toolbar_compensation"
+            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 
 </RelativeLayout>
