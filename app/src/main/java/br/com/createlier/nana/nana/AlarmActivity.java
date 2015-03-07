@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,16 +20,18 @@ import Utils.CapsuleHandler;
 import Utils.NanaActivity;
 import Utils.PillSelectorManager;
 import Utils.TimePickerManager;
+import Utils.Utils;
 import recycler_handlers.InfoHolder;
 
 
 public class AlarmActivity extends NanaActivity {
 
+    private static String hour;
     private Toolbar toolbar;
     private ActionButton actionButton;
     private RecyclerView mRecyclerView;
-    private PillSelectorManager psm;
-    private MaterialDialog md;
+    private MaterialDialog mdBegin, mdEnd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,67 @@ public class AlarmActivity extends NanaActivity {
         mRecyclerView.setHasFixedSize(true);
         setRecyclerView(mRecyclerView);
 
+
+        mdEnd = new MaterialDialog.Builder(this)
+                .customView(R.layout.dialog_add_pill_end, true)
+                .positiveText(R.string.material_dialog_finish)
+                .negativeText(R.string.material_dialog_cancel)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        final TextView timeHolder = (TextView) dialog.findViewById(R.id.timeTextHolder);
+
+                        int nhour = Integer.parseInt(hour.charAt(0) + "" + hour.charAt(1));
+
+                        Log.d("INFODATA", "Res: " + Utils.chooseResourcesFromTime(nhour));
+                        Log.d("INFODATA", "Hour: " + hour);
+                        Log.d("INFODATA", "About: " + ((TextView) dialog.findViewById(R.id.fpsAboutText)).getText().toString());
+                        /*infoData = new InfoData(
+                                Utils.chooseResourcesFromTime(nhour),
+                                mTimeHolder.getText().toString(),
+                                mAboutText.getText().toString(),
+                                false
+                        );*/
+                    }
+                })
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        actionButton.startAnimation(actionButton.getShowAnimation());
+                        actionButton.show();
+                    }
+                })
+                .build();
+
+
+        mdBegin = new MaterialDialog.Builder(this)
+                .customView(R.layout.dialog_add_pill, true)
+                .positiveText(R.string.material_dialog_next)
+                .negativeText(R.string.material_dialog_cancel)
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        actionButton.startAnimation(actionButton.getShowAnimation());
+                        actionButton.show();
+                    }
+                })
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        hour = ((TextView) dialog.findViewById(R.id.timeTextHolder)).getText().toString();
+                        mdEnd.show();
+                        final TextView timeHolder = (TextView) mdEnd.findViewById(R.id.timeTextHolder);
+                        timeHolder.setText(hour);
+
+                        PillSelectorManager psm = new PillSelectorManager();
+                        psm.defineParentView((ViewGroup) mdEnd.findViewById(R.id.supremeParent))
+                                .defineActivity(main);
+                        psm.build();
+                    }
+                })
+                .build();
+
+
         actionButton = (ActionButton) findViewById(R.id.button_add_pill);
 
         actionButton.setOnClickListener(new View.OnClickListener() {
@@ -53,30 +116,10 @@ public class AlarmActivity extends NanaActivity {
             public void onClick(View v) {
                 actionButton.startAnimation(actionButton.getHideAnimation());
                 actionButton.hide();
-                md.show();
-
-                final TextView nextButton = (TextView) md.findViewById(R.id.nextScreen);
-                nextButton.setText(R.string.material_dialog_next);
-
-                final RelativeLayout parent = (RelativeLayout) md.findViewById(R.id.contentHolder);
-                parent.removeAllViews();
-                getLayoutInflater().inflate(R.layout.fragment_time_picker, parent);
-
-                final RelativeLayout supremeParent = (RelativeLayout) md.findViewById(R.id.supremeParent);
-                TimePickerManager timePickerManager = new TimePickerManager(supremeParent, 5);
+                mdBegin.show();
+                TimePickerManager timePickerManager = new TimePickerManager(
+                        (ViewGroup) mdBegin.findViewById(R.id.supremeParent), 5);
                 timePickerManager.build();
-
-                nextButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        parent.removeAllViews();
-                        getLayoutInflater().inflate(R.layout.fragment_pill_selector, parent);
-
-                        psm = new PillSelectorManager();
-                        psm.defineParentView(supremeParent).defineActivity(main);
-                        psm.build();
-                    }
-                });
             }
         });
     }
@@ -124,21 +167,6 @@ public class AlarmActivity extends NanaActivity {
         infoHolder.addAlarmSelector(12, 00, new int[]{4});
         infoHolder.addAlarmSelector(20, 30, new int[]{1, 5, 6});
 
-        md = new MaterialDialog.Builder(this)
-                .customView(R.layout.dialog_add_pill, true)
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        actionButton.startAnimation(actionButton.getShowAnimation());
-                        actionButton.show();
 
-                        try {
-                            infoHolder.addInfoData(psm.getInfoData());
-                        } catch (Exception e) {
-                            Log.e("ERROR", e + "");
-                        }
-                    }
-                })
-                .build();
     }
 }

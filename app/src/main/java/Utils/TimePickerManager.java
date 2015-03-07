@@ -39,7 +39,7 @@ public class TimePickerManager {
         mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                hourShower.setText(String.format(hourOfDay + " : %02d", minute * minutesInterval));
+                hourShower.setText(String.format(hourOfDay + ":%02d", minute * minutesInterval));
             }
         });
     }
