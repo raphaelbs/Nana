@@ -26,20 +26,36 @@
         android:gravity="center"
         android:paddingBottom="10dp"
         android:textColor="@color/primaryText"
-        android:textSize="15sp" />
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/fpsAboutText"
         android:layout_centerHorizontal="true">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_end"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/toolbar_compensation"
-            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/fpsRemove"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_remove_circle" />
+
+        <NumberPicker
+            android:id="@+id/fpsHolderList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/fpsRemove" />
+
+        <ImageView
+            android:id="@+id/fpsAdd"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/fpsHolderList"
+            android:src="@mipmap/ic_add_circle" />
     </RelativeLayout>
 
 </RelativeLayout>

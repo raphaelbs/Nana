@@ -1,5 +1,6 @@
 package recycler_handlers;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import Utils.DatabaseAlarms;
 import br.com.createlier.nana.nana.R;
 
 /**
@@ -15,8 +19,10 @@ import br.com.createlier.nana.nana.R;
  */
 public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHolder> {
     private InfoHolder list;
+    private Context mContext;
 
-    public RITAOAdapter(InfoHolder list) {
+    public RITAOAdapter(InfoHolder list, Context context) {
+        this.mContext = context;
         this.list = list;
     }
 
@@ -48,7 +54,7 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, final int position) {
         InfoData current = list.getInfoDatas().get(position);
         switch (current.getLayoutType()) {
             case InfoHolder.CONTAIN_ONLY_TEXT:
@@ -75,6 +81,29 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
         }
         if (current.haveAction())
             holder.setClickListener(current.getOnClickListener());
+
+        if (current.isDeletable() && !current.haveAction())
+            holder.setClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MaterialDialog.Builder md = new MaterialDialog.Builder(mContext)
+                            .title("Deseja apagar este alarme?")
+                            .content("Esta ação não pode ser desfeita.")
+                            .positiveText(R.string.material_dialog_ok)
+                            .negativeText(R.string.material_dialog_cancel)
+                            .callback(new MaterialDialog.ButtonCallback() {
+                                @Override
+                                public void onPositive(MaterialDialog dialog) {
+                                    DatabaseAlarms db = new DatabaseAlarms(mContext);
+                                    db.deleteAlarm(position);
+                                    db.close();
+                                    list.removeInfoData(position);
+                                    notifyItemRemoved(position);
+                                }
+                            });
+                    md.show();
+                }
+            });
     }
 
     @Override
@@ -117,6 +146,10 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
 
         public void setClickListener(View.OnClickListener ocl) {
             parent.setOnClickListener(ocl);
+        }
+
+        public void setLongClickListener(View.OnLongClickListener lcl) {
+            parent.setOnLongClickListener(lcl);
         }
     }
 }

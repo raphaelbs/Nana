@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +16,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.software.shell.fab.ActionButton;
 
 import Utils.CapsuleHandler;
+import Utils.DatabaseAlarms;
 import Utils.NanaActivity;
 import Utils.PillSelectorManager;
 import Utils.TimePickerManager;
 import Utils.Utils;
+import recycler_handlers.InfoData;
 import recycler_handlers.InfoHolder;
 
 
@@ -31,6 +32,9 @@ public class AlarmActivity extends NanaActivity {
     private ActionButton actionButton;
     private RecyclerView mRecyclerView;
     private MaterialDialog mdBegin, mdEnd;
+
+    private DatabaseAlarms db;
+    private PillSelectorManager psm;
 
 
     @Override
@@ -60,15 +64,15 @@ public class AlarmActivity extends NanaActivity {
 
                         int nhour = Integer.parseInt(hour.charAt(0) + "" + hour.charAt(1));
 
-                        Log.d("INFODATA", "Res: " + Utils.chooseResourcesFromTime(nhour));
-                        Log.d("INFODATA", "Hour: " + hour);
-                        Log.d("INFODATA", "About: " + ((TextView) dialog.findViewById(R.id.fpsAboutText)).getText().toString());
-                        /*infoData = new InfoData(
-                                Utils.chooseResourcesFromTime(nhour),
-                                mTimeHolder.getText().toString(),
-                                mAboutText.getText().toString(),
+                        InfoData infoData = new InfoData(
+                                Utils.chooseResFromTime(nhour),
+                                hour,
+                                ((TextView) dialog.findViewById(R.id.fpsAboutText)).getText().toString(),
                                 false
-                        );*/
+                        );
+                        infoData.setDeletable(true);
+                        addOnInfoHolder(infoData);
+                        db.addAlarm(infoData);
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
@@ -100,9 +104,9 @@ public class AlarmActivity extends NanaActivity {
                         final TextView timeHolder = (TextView) mdEnd.findViewById(R.id.timeTextHolder);
                         timeHolder.setText(hour);
 
-                        PillSelectorManager psm = new PillSelectorManager();
-                        psm.defineParentView((ViewGroup) mdEnd.findViewById(R.id.supremeParent))
-                                .defineActivity(main);
+                        psm = new PillSelectorManager(
+                                (ViewGroup) mdEnd.findViewById(R.id.supremeParent)
+                        );
                         psm.build();
                     }
                 })
@@ -162,11 +166,11 @@ public class AlarmActivity extends NanaActivity {
 
     @Override
     public void populateList(final InfoHolder infoHolder) {
-        infoHolder.addAlarmSelector(7, 30, new int[]{0});
-        infoHolder.addAlarmSelector(8, 30, new int[]{1, 2, 3});
-        infoHolder.addAlarmSelector(12, 00, new int[]{4});
-        infoHolder.addAlarmSelector(20, 30, new int[]{1, 5, 6});
+        db = new DatabaseAlarms(getApplicationContext());
 
+        for (InfoData id : db.getAlarms())
+            infoHolder.addInfoData(id.setDeletable(true));
 
+        db.close();
     }
 }

@@ -1,79 +1,87 @@
 package Utils;
 
-import android.app.Activity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import br.com.createlier.nana.nana.R;
-import recycler_handlers.InfoHolder;
-import recycler_handlers.RITAOAdapter;
 
 /**
  * To correct use this class, you need to feed the @defineParentView and @defineActivity.
  * Created by dede on 06/03/2015.
  */
 public class PillSelectorManager {
+    private static int nVal;
     private ViewGroup mParent;
     private TextView mAboutText;
-    private Activity activity;
+    private ImageView mAdd, mRemove;
+    private NumberPicker mNumberPicker;
+    private ArrayList<Integer> capsulesHolder;
 
-    /**
-     * Defines the ViewGroup that are holding the @dialog_add_pill_endl.
-     *
-     * @param v
-     * @return
-     */
-    final public PillSelectorManager defineParentView(ViewGroup v) {
-        mParent = v;
-        return this;
-    }
-
-    /**
-     * Define in witch @Activity we are working on.
-     *
-     * @param activity
-     */
-    final public PillSelectorManager defineActivity(Activity activity) {
-        this.activity = activity;
-        return this;
+    public PillSelectorManager(ViewGroup parent) {
+        mParent = parent;
+        mAboutText = (TextView) parent.findViewById(R.id.fpsAboutText);
+        mNumberPicker = (NumberPicker) parent.findViewById(R.id.fpsHolderList);
+        mAdd = (ImageView) parent.findViewById(R.id.fpsAdd);
+        mRemove = (ImageView) parent.findViewById(R.id.fpsRemove);
+        mAboutText.setText("");
+        capsulesHolder = new ArrayList<Integer>();
+        nVal = 0;
     }
 
     final public void build() {
-        final RecyclerView recyclerView = (RecyclerView) mParent.findViewById(R.id.recycler_view_end);
-        mAboutText = (TextView) mParent.findViewById(R.id.fpsAboutText);
+        String[] capsules = CapsuleHandler.getCapsules().toArray(
+                new String[CapsuleHandler.getCapsules().size()]);
+        mNumberPicker.setMaxValue(capsules.length - 1);
+        mNumberPicker.setMinValue(0);
+        mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        mNumberPicker.setWrapSelectorWheel(true);
+        mNumberPicker.setDisplayedValues(capsules);
+        mNumberPicker.setValue(0);
 
-        recyclerView.setAdapter(new RITAOAdapter(populateList()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mNumberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                nVal = newVal;
+            }
+        });
+
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                capsulesHolder.add(nVal);
+                updateList();
+            }
+        });
+
+        mRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (capsulesHolder.size() != 0)
+                    capsulesHolder.remove(capsulesHolder.size() - 1);
+                updateList();
+            }
+        });
     }
 
-    private InfoHolder populateList() {
-        InfoHolder mInfoHolder = new InfoHolder(activity);
-        for (int i = 0; i < 7; i++) {
-            final int ite = i;
-            mInfoHolder.addSelectionWithIcon(
-                    R.drawable.ic_launcher,
-                    CapsuleHandler.getCapsuleName(i)
-            ).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addOn(ite);
-                }
-            });
-        }
-        return mInfoHolder;
+    public String getCapsulesHolder() {
+        String s = "";
+        for (int i : capsulesHolder)
+            s += i + "-";
+        return s;
     }
 
-    final private void addOn(final int position) {
-        if (mAboutText.getText().equals(""))
-            mAboutText.setText(CapsuleHandler.getCapsuleName(position));
-        else
-            mAboutText.setText(
-                    mAboutText.getText().toString() +
-                            ", " + CapsuleHandler.getCapsuleName(position));
+    final private void updateList() {
+        String text = "";
+        for (int i = 0; i < capsulesHolder.size(); i++)
+            if (i == 0)
+                text = CapsuleHandler.getCapsuleName(capsulesHolder.get(i));
+            else
+                text += ", " + CapsuleHandler.getCapsuleName(capsulesHolder.get(i));
+        mAboutText.setText(text);
     }
 }

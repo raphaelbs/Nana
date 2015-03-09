@@ -1,6 +1,5 @@
 package Utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import br.com.createlier.nana.nana.R;
+import recycler_handlers.InfoData;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
@@ -41,13 +41,18 @@ abstract public class NanaActivity extends ActionBarActivity {
         manageDatabase();
         populateList(this.mInfoHolder);
         mRecyclerView = recyclerView;
-        mRecyclerView.setAdapter(new RITAOAdapter(this.mInfoHolder));
+        mRecyclerView.setAdapter(new RITAOAdapter(this.mInfoHolder, this));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    final protected void notifyAdapterItemChanged(int position){
+    final protected void notifyAdapterItemChanged(int position) {
         mRecyclerView.getAdapter().notifyItemChanged(position);
+    }
+
+    final protected void addOnInfoHolder(InfoData infoData) {
+        mInfoHolder.addInfoData(infoData);
+        mRecyclerView.getAdapter().notifyItemInserted(mInfoHolder.getInfoDatas().size() - 1);
     }
 
     final protected void setDecorationInRecyclerView(boolean enabled) {
@@ -59,28 +64,28 @@ abstract public class NanaActivity extends ActionBarActivity {
             mRecyclerView.removeItemDecoration(mDividerItemDecoration);
     }
 
-    final protected String getFromDatabase(final int key, final int defaultValue){
+    final protected String getFromDatabase(final int key, final int defaultValue) {
         return mSharedPreferences.getString(
                 this.getResources().getString(key), this.getResources().getString(defaultValue));
     }
 
-    final protected String getFromDatabase(final int key){
+    final protected String getFromDatabase(final int key) {
         return mSharedPreferences.getString(
                 this.getResources().getString(key), this.getResources().getString(key));
     }
 
-    final protected String getFromDatabase(final int key, final String defaultValue){
+    final protected String getFromDatabase(final int key, final String defaultValue) {
         return mSharedPreferences.getString(
                 this.getResources().getString(key), defaultValue);
     }
 
-    final protected void setInDatabase(final int key, final String value){
-        mEditor.putString(this.getResources().getString(key),value);
+    final protected void setInDatabase(final int key, final String value) {
+        mEditor.putString(this.getResources().getString(key), value);
         mEditor.commit();
     }
 
-    final protected void setInDatabase(final String key, final String value){
-        mEditor.putString(key,value);
+    final protected void setInDatabase(final String key, final String value) {
+        mEditor.putString(key, value);
         mEditor.commit();
     }
 

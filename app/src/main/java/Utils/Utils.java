@@ -7,7 +7,11 @@ import br.com.createlier.nana.nana.R;
  */
 public class Utils {
 
-    public static int chooseResourcesFromTime(int hour) {
+    public static int chooseResFromTime(String hour) {
+        return chooseResFromTime(Integer.parseInt(hour.charAt(0) + "" + hour.charAt(1)));
+    }
+
+    public static int chooseResFromTime(int hour) {
         if (hour >= 0 && hour < 2)
             return R.mipmap.ic_brightness_1;
         if (hour >= 2 && hour < 4)
@@ -26,6 +30,5 @@ public class Utils {
             return R.mipmap.ic_brightness_1;
         return 0;
     }
-
 
 }

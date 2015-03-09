@@ -23,6 +23,7 @@ public class TimePickerManager {
         mTimePicker = (TimePicker) mParent.findViewById(R.id.timePicker);
         hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY); // Get hour now
         minutesInterval = MINUTES_INTERVAL;
+        mTimePicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
     }
 
     public void build() {
@@ -35,11 +36,11 @@ public class TimePickerManager {
         /* Populate the minutes @NumberPicker with intervals of @MINUTES_INTERVAL */
         defineMinutesInterval(minutesInterval);
 
-        hourShower.setText(hourOfDay + ":" + "00");
+        hourShower.setText(String.format("%02d:00", hourOfDay));
         mTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                hourShower.setText(String.format(hourOfDay + ":%02d", minute * minutesInterval));
+                hourShower.setText(String.format("%02d:%02d", hourOfDay, minute * minutesInterval));
             }
         });
     }

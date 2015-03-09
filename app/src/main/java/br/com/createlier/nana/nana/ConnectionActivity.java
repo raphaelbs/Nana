@@ -1,8 +1,8 @@
 package br.com.createlier.nana.nana;
 
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import Utils.DividerItemDecoration;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
@@ -41,7 +40,7 @@ public class ConnectionActivity extends ActionBarActivity {
 
         populateList();
 
-        recyclerView.setAdapter(new RITAOAdapter(infoHolder));
+        recyclerView.setAdapter(new RITAOAdapter(infoHolder, this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }

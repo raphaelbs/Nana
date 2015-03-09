@@ -47,7 +47,7 @@ public class InfoHolder {
 
         infoDatas.add(
                 new InfoData(
-                        Utils.chooseResourcesFromTime(hour),
+                        Utils.chooseResFromTime(hour),
                         time,
                         about,
                         false)
@@ -251,6 +251,10 @@ public class InfoHolder {
 
     public void setTextInfoData(int position, String text) {
         infoDatas.get(position).setMainText(text);
+    }
+
+    public void removeInfoData(int position) {
+        infoDatas.remove(position);
     }
 
     private InfoData getLastAdded() {
