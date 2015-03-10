@@ -54,10 +54,9 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
     }
 
     @Override
-    public void onBindViewHolder(final CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(final CustomViewHolder holder, int position) {
 
-        final int positionThatMatters = holder.getPosition();
-        InfoData current = list.getInfoDatas().get(positionThatMatters);
+        InfoData current = list.getInfoDatas().get(position);
 
         switch (current.getLayoutType()) {
             case InfoHolder.CONTAIN_ONLY_TEXT:
@@ -97,6 +96,7 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
                             .callback(new MaterialDialog.ButtonCallback() {
                                 @Override
                                 public void onPositive(MaterialDialog dialog) {
+                                    int positionThatMatters = holder.getPosition();
                                     DatabaseAlarms db = new DatabaseAlarms(mContext);
                                     db.deleteAlarm(list.getInfoDatas().get(positionThatMatters).getID());
                                     db.close();
