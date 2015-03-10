@@ -50,6 +50,10 @@ abstract public class NanaActivity extends ActionBarActivity {
         mRecyclerView.getAdapter().notifyItemChanged(position);
     }
 
+    final protected void notifyResume() {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
     final protected void addOnInfoHolder(InfoData infoData) {
         mInfoHolder.addInfoData(infoData);
         mRecyclerView.getAdapter().notifyItemInserted(mInfoHolder.getInfoDatas().size() - 1);

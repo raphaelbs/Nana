@@ -67,12 +67,10 @@ public class AlarmActivity extends NanaActivity {
                         InfoData infoData = new InfoData(
                                 Utils.chooseResFromTime(nhour),
                                 hour,
-                                ((TextView) dialog.findViewById(R.id.fpsAboutText)).getText().toString(),
+                                psm.getCapsulesHolder(),
                                 false
                         );
-                        infoData.setDeletable(true);
-                        addOnInfoHolder(infoData);
-                        db.addAlarm(infoData);
+                        addOnInfoHolder(db.addAlarm(infoData).updateCapsuleNames());
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
@@ -129,6 +127,12 @@ public class AlarmActivity extends NanaActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        notifyResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
@@ -168,8 +172,8 @@ public class AlarmActivity extends NanaActivity {
     public void populateList(final InfoHolder infoHolder) {
         db = new DatabaseAlarms(getApplicationContext());
 
-        for (InfoData id : db.getAlarms())
-            infoHolder.addInfoData(id.setDeletable(true));
+        for (InfoData data : db.getAlarms())
+            infoHolder.addInfoData(data.updateCapsuleNames());
 
         db.close();
     }

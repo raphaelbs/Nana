@@ -71,7 +71,7 @@ public class PillSelectorManager {
     public String getCapsulesHolder() {
         String s = "";
         for (int i : capsulesHolder)
-            s += i + "-";
+            s += i + " ";
         return s;
     }
 

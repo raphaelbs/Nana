@@ -18,7 +18,7 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "alarmsManager";
@@ -60,21 +60,26 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
      */
 
     // Adding new contact
-    public DatabaseAlarms addAlarm(InfoData infoData) {
+    public InfoData addAlarm(InfoData infoData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TIME, infoData.getMainText());
         values.put(KEY_ABOUT, infoData.getOptionalText());
         // Inserting Row
-        db.insert(TABLE_ALARM, null, values);
+        long rid = db.insert(TABLE_ALARM, null, values);
+        infoData.setID(rid).setDeletable(true);
         db.close(); // Closing database connection
 
-        return this;
+        Log.d("DATABASE", "Added with sucess! ID: " + rid);
+
+        return infoData;
     }
 
     // Getting single contact
-    InfoData getAlarm(int id) {
+    InfoData getAlarm(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
+
+        Log.d("DATABASE", "Trying to get... ID: " + id);
 
         Cursor cursor = db.query(TABLE_ALARM, new String[]{KEY_ID,
                         KEY_TIME, KEY_ABOUT}, KEY_ID + "=?",
@@ -114,6 +119,7 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
                             cursor.getString(2),
                             false);
                     // Adding contact to list
+                    infoData.setID(cursor.getLong(0)).setDeletable(true);
                     infoDatas.add(infoData);
                 } while (cursor.moveToNext());
             }
@@ -130,7 +136,7 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
     }
 
     // Updating single contact
-    public int updateAlarm(InfoData infoData, int position) {
+    public int updateAlarm(InfoData infoData, long position) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -143,7 +149,8 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
     }
 
     // Deleting single contact
-    public void deleteAlarm(int id) {
+    public void deleteAlarm(long id) {
+        Log.d("DATABASE", "Trying to delete... ID: " + id);
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_ALARM, KEY_ID + " = ?",
                 new String[]{String.valueOf(id)});
@@ -159,6 +166,12 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+
+    public void dropTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALARM);
+        db.close();
     }
 
 }

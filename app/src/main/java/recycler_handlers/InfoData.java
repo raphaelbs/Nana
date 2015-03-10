@@ -2,6 +2,12 @@ package recycler_handlers;
 
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import Utils.CapsuleHandler;
+
 /**
  * Created by dede on 28/02/2015.
  */
@@ -13,12 +19,14 @@ public class InfoData {
     private int layoutType;
     private boolean asAction;
     private boolean isDeletable;
+    private long ID;
 
     public InfoData(String mainText) {
         this.mainText = mainText;
         layoutType = InfoHolder.CONTAIN_ONLY_TEXT;
         asAction = false;
         isDeletable = false;
+        ID = -1;
     }
 
     public InfoData(int iconPath, String mainText, boolean isEditable) {
@@ -29,6 +37,7 @@ public class InfoData {
         else
             layoutType = InfoHolder.CONTAIN_ICON_TEXT;
         asAction = false;
+        ID = -1;
     }
 
     public InfoData(int iconPath, String mainText, String optionalText, boolean isEditable) {
@@ -40,6 +49,26 @@ public class InfoData {
         else
             layoutType = InfoHolder.CONTAIN_ICON_TEXT_ABOUT;
         asAction = false;
+        ID = -1;
+    }
+
+    public InfoData updateCapsuleNames() {
+        ArrayList<Integer> ar = new ArrayList<Integer>();
+        Pattern pattern = Pattern.compile("([0-9])");
+        Matcher matcher = pattern.matcher(optionalText);
+        while (matcher.find()) {
+            ar.add(Integer.parseInt(matcher.group()));
+        }
+
+        String about = "";
+        for (int i = 0; i < ar.size(); i++) {
+            about += CapsuleHandler.getCapsuleName(ar.get(i));
+            if (i != ar.size() - 1)
+                about += ", ";
+        }
+
+        optionalText = about;
+        return this;
     }
 
     public int getLayoutType() {
@@ -94,6 +123,22 @@ public class InfoData {
      */
     public InfoData setDeletable(boolean isDeletable) {
         this.isDeletable = isDeletable;
+        return this;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    /**
+     * Set the ID of this InfoData referent to the data structure SQLite.
+     * It can only be set once.
+     *
+     * @param ID
+     */
+    public InfoData setID(long ID) {
+        if (this.ID == -1)
+            this.ID = ID;
         return this;
     }
 }

@@ -54,8 +54,11 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, final int position) {
-        InfoData current = list.getInfoDatas().get(position);
+    public void onBindViewHolder(final CustomViewHolder holder, final int position) {
+
+        final int positionThatMatters = holder.getPosition();
+        InfoData current = list.getInfoDatas().get(positionThatMatters);
+
         switch (current.getLayoutType()) {
             case InfoHolder.CONTAIN_ONLY_TEXT:
                 holder.text.setText(current.getMainText());
@@ -82,7 +85,7 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
         if (current.haveAction())
             holder.setClickListener(current.getOnClickListener());
 
-        if (current.isDeletable() && !current.haveAction())
+        if (current.isDeletable() && !current.haveAction()) {
             holder.setClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,15 +98,17 @@ public class RITAOAdapter extends RecyclerView.Adapter<RITAOAdapter.CustomViewHo
                                 @Override
                                 public void onPositive(MaterialDialog dialog) {
                                     DatabaseAlarms db = new DatabaseAlarms(mContext);
-                                    db.deleteAlarm(position);
+                                    db.deleteAlarm(list.getInfoDatas().get(positionThatMatters).getID());
                                     db.close();
-                                    list.removeInfoData(position);
-                                    notifyItemRemoved(position);
+
+                                    list.removeInfoData(positionThatMatters);
+                                    notifyItemRemoved(positionThatMatters);
                                 }
                             });
                     md.show();
                 }
             });
+        }
     }
 
     @Override
