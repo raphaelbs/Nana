@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.createlier.nana.nana.AlarmActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar_extended"></include>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarm_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:layout_marginTop="@dimen/toolbar_compensation"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+
+    <com.software.shell.fab.ActionButton
+        android:id="@+id/button_add_pill"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/app_bar"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="@dimen/button_margin_top"
+        android:elevation="6dp"
+        fab:button_color="@color/accentColor"
+        fab:button_colorPressed="@color/accent900"
+        fab:hide_animation="@anim/fab_jump_to_right"
+        fab:image="@mipmap/add_pill"
+        fab:shadow_radius="@dimen/button_elevation"
+        fab:shadow_xOffset="@dimen/button_elevation"
+        fab:shadow_yOffset="@dimen/button_elevation"
+        fab:show_animation="@anim/fab_jump_from_right" />
+
+
+</RelativeLayout>
