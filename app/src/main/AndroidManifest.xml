@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.createlier.nana.nana" >
+    package="br.com.createlier.nana.nana">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".AlarmActivity"
-            android:label="@string/title_activity_alarm" >
+            android:label="@string/title_activity_alarm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +23,11 @@
         <activity
             android:name=".ConnectionActivity"
             android:label=""
-            android:parentActivityName=".AlarmActivity" >
-        </activity>
+            android:parentActivityName=".AlarmActivity"></activity>
         <activity
             android:name=".SongsActivity"
             android:label="@string/title_activity_songs"
-            android:parentActivityName=".AlarmActivity">
-        </activity>
+            android:parentActivityName=".AlarmActivity"></activity>
     </application>
 
 </manifest>
