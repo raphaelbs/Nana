@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.software.shell.fab.ActionButton;
 
+import Utils.BTHandler;
 import Utils.CapsuleHandler;
 import Utils.DatabaseAlarms;
 import Utils.NanaActivity;
@@ -32,6 +33,7 @@ public class AlarmActivity extends NanaActivity {
     private ActionButton actionButton;
     private RecyclerView mRecyclerView;
     private MaterialDialog mdBegin, mdEnd;
+    private BTHandler mBT;
 
     private DatabaseAlarms db;
     private PillSelectorManager psm;
@@ -51,6 +53,8 @@ public class AlarmActivity extends NanaActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.alarm_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         setRecyclerView(mRecyclerView);
+
+        mBT = new BTHandler(this);
 
 
         mdEnd = new MaterialDialog.Builder(this)
@@ -130,13 +134,22 @@ public class AlarmActivity extends NanaActivity {
     protected void onResume() {
         super.onResume();
         notifyResume();
+        if (mBT.isConnected())
+            mBT.resumeComm();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mBT.isConnected())
+            mBT.pauseComm();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
-
+        mBT.setMenuItem(menu.findItem(R.id.settings_bt_icon));
         return true;
     }
 
@@ -155,6 +168,8 @@ public class AlarmActivity extends NanaActivity {
             startActivity(new Intent(this, ConnectionActivity.class));
         if (id == R.id.settings_menu_songs)
             startActivity(new Intent(this, SongsActivity.class));
+        if (id == R.id.settings_bt_icon)
+            mBT.showList();
 
         return super.onOptionsItemSelected(item);
 

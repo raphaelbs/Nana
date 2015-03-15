@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Naná</string>
     <string name="title_activity_settings">Configurações</string>
-    <string name="title_activity_alarm">Alarmes</string>
+    <string name="title_activity_alarm">Naná</string>
     <string name="title_activity_pill">Novo Alarme</string>
 
     <!-- Material.Builder Dialog names -->
@@ -10,6 +10,7 @@
     <string name="material.dialog_ok">Ok</string>
     <string name="material.dialog_cancel">Cancelar</string>
     <string name="material.dialog_confirm">Confirmar</string>
+    <string name="material.dialog_connect">Conectar</string>
     <string name="material.dialog_reject">Rejeitar</string>
     <string name="material.dialog_next">Próximo</string>
     <string name="material.dialog_finish">Finalizar</string>
@@ -20,11 +21,10 @@
 
     <!-- Activity Settings Strings -->
     <string name="settings_names_item">Nomeclatura</string>
-    <string name="settings_names_item_desc">Defina o nome dos seus remédios</string>
     <string name="settings_connection_item">Conexão</string>
-    <string name="settings_connection_item_desc">Gerencie sua conexão</string>
     <string name="settings_songs_item">Sons</string>
-    <string name="settings_songs_item_desc">Altere volume, tipos de som, etc...</string>
+    <string name="settings_bluetooth_item">Bluetooth</string>
+
 
     <!-- Activity Connection Strings -->
     <string name="connection_att_item">Upload</string>
@@ -49,5 +49,11 @@
     <string name="shared_pill_name_5">Remédio 5</string>
     <string name="shared_pill_name_6">Remédio 6</string>
     <string name="shared_pill_name_7">Remédio 7</string>
+
+
+    <!-- Bluetooth's strings -->
+    <string name="bluetooth_dialog_tilte">Dispositivos Pareados</string>
+    <string name="bluetooth_dialog_connected_tilte">Comunicação</string>
+    <string name="bluetooth_onconnected">Conectado!</string>
 
 </resources>
