@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,7 +16,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.software.shell.fab.ActionButton;
 
-import Utils.BTHandler;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import BluetoothComm.BTHandler;
 import Utils.CapsuleHandler;
 import Utils.DatabaseAlarms;
 import Utils.NanaActivity;
@@ -29,12 +33,12 @@ import recycler_handlers.InfoHolder;
 public class AlarmActivity extends NanaActivity {
 
     private static String hour;
+    private static Handler btIn;
     private Toolbar toolbar;
     private ActionButton actionButton;
     private RecyclerView mRecyclerView;
     private MaterialDialog mdBegin, mdEnd;
     private BTHandler mBT;
-
     private DatabaseAlarms db;
     private PillSelectorManager psm;
 
@@ -56,7 +60,6 @@ public class AlarmActivity extends NanaActivity {
 
         mBT = new BTHandler(this);
 
-
         mdEnd = new MaterialDialog.Builder(this)
                 .customView(R.layout.dialog_add_pill_end, true)
                 .positiveText(R.string.material_dialog_finish)
@@ -74,7 +77,8 @@ public class AlarmActivity extends NanaActivity {
                                 psm.getCapsulesHolder(),
                                 false
                         );
-                        addOnInfoHolder(db.addAlarm(infoData).updateCapsuleNames());
+                        //addOnInfoHolder(db.addAlarm(infoData).updateCapsuleNames());
+                        mBT.addAlarm(hour, psm.getCapsulesHolder());
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
@@ -124,10 +128,47 @@ public class AlarmActivity extends NanaActivity {
                 actionButton.hide();
                 mdBegin.show();
                 TimePickerManager timePickerManager = new TimePickerManager(
-                        (ViewGroup) mdBegin.findViewById(R.id.supremeParent), 5);
+                        (ViewGroup) mdBegin.findViewById(R.id.supremeParent), 10);
                 timePickerManager.build();
             }
         });
+
+
+        btIn = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                if (msg.what == 0) {
+                    //db.dropTable();
+                    String incMessage = (String) msg.obj;
+
+                    String hour = null, caps = "";
+                    Pattern pattern = Pattern.compile("([0-9]+)");
+                    Matcher matcher = pattern.matcher(incMessage);
+                    boolean first = true;
+
+                    while (matcher.find()) {
+                        if (first) {
+                            hour = matcher.group(1);
+                            first = false;
+                        }
+                        if (matcher.group(1).equals("0")) {
+                            first = true;
+                            InfoData infoData = new InfoData(
+                                    Utils.chooseResFromTime(Utils.decodeHour(Integer.parseInt(hour))),
+                                    Utils.decodeHour(Integer.parseInt(hour)),
+                                    caps,
+                                    false
+                            );
+                            addOnInfoHolder(db.addAlarm(infoData).updateCapsuleNames());
+                            caps = "";
+                        } else {
+                            caps = caps + (Integer.parseInt(matcher.group(1)) - 1);
+                        }
+                    }
+                }
+            }
+        };
+        notifyResume();
+        mBT.setBluetoothIn(btIn);
     }
 
     @Override

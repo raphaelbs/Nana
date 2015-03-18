@@ -55,5 +55,9 @@
     <string name="bluetooth_dialog_tilte">Dispositivos Pareados</string>
     <string name="bluetooth_dialog_connected_tilte">Comunicação</string>
     <string name="bluetooth_onconnected">Conectado!</string>
+    <string name="bluetooth_error_onconnect">Houve um problema na conexão! Tente novamente..</string>
+    <string name="bluetooth_find_none">Naná está fora de alcance ou desligado!</string>
+    <string name="bluetooth_handler_null">Não há destino para mensagem!</string>
+
 
 </resources>

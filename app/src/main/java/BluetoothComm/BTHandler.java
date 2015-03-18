@@ -1,24 +1,26 @@
-package Utils;
+package BluetoothComm;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import Utils.DatabaseAlarms;
+import Utils.Utils;
 import br.com.createlier.nana.nana.R;
 
 /**
@@ -27,7 +29,6 @@ import br.com.createlier.nana.nana.R;
 public class BTHandler {
     private static final UUID MY_UUID =
             UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    final int handlerState = 0;
     Handler bluetoothIn;
     private BluetoothAdapter BA;
     private Set<BluetoothDevice> pairedDevices;
@@ -42,17 +43,11 @@ public class BTHandler {
     public BTHandler(Activity activity) {
         this.activity = activity;
         BA = BluetoothAdapter.getDefaultAdapter();
-
-        bluetoothIn = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                if (msg.what == handlerState) {                                     //if message is what we want
-                    String readMessage = (String) msg.obj;
-                    Log.d("MESSAGE", readMessage);
-                }
-            }
-        };
-
         checkBTState();
+    }
+
+    public void setBluetoothIn(Handler bluetoothIn) {
+        this.bluetoothIn = bluetoothIn;
     }
 
     private void checkBTState() {
@@ -73,6 +68,8 @@ public class BTHandler {
     public void showList() {
         if (isConnected()) {
 
+            //activity.startActivity(new Intent(activity, ConnectionActivity.class));
+
             final ArrayList<String> arrayList = new ArrayList<String>();
             arrayList.add("Download configurações");
             arrayList.add("Upload configurações");
@@ -86,7 +83,20 @@ public class BTHandler {
                         @Override
                         public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                             if (i == 0) {
+                                DatabaseAlarms db = new DatabaseAlarms(activity);
+                                db.dropTable();
+                                db.close();
                                 mConnectedThread.write("x.");
+                                //((NanaActivity)activity).addOnInfoHolder();
+                            }
+                            if (i == 1) {
+                                //mConnectedThread.write("x.");
+                                //((NanaActivity)activity).addOnInfoHolder();
+                            }
+                            if (i == 2) {
+                                pauseComm();
+                                isConnected = false;
+                                //((NanaActivity)activity).addOnInfoHolder();
                             }
                         }
                     })
@@ -106,13 +116,26 @@ public class BTHandler {
                     .title(R.string.bluetooth_dialog_tilte)
                     .positiveText(R.string.material_dialog_connect)
                     .items(arrayList.toArray(new CharSequence[arrayList.size()]))
+                    .dismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (!isConnected) {
+                                setIcon(ICON.disabled);
+                            }
+                        }
+                    })
                     .itemsCallbackSingleChoice(1, new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                            for (BluetoothDevice bt : pairedDevices)
-                                if (bt.getName().equals(arrayList.get(i)))
-                                    address = bt.getAddress();
-                            resumeComm();
+                            try {
+                                for (BluetoothDevice bt : pairedDevices)
+                                    if (bt.getName().equals(arrayList.get(i)))
+                                        address = bt.getAddress();
+                                resumeComm();
+                            } catch (Exception e) {
+                                Toast.makeText(activity, R.string.bluetooth_find_none, Toast.LENGTH_SHORT)
+                                        .show();
+                            }
                         }
                     })
                     .build();
@@ -120,44 +143,36 @@ public class BTHandler {
         }
     }
 
-
     public void resumeComm() {
         checkBTState();
-        menuItem.setIcon(R.mipmap.ic_bluetooth_searching);
-        // Set up a pointer to the remote node using it's address.
+        setIcon(ICON.searching);
+        BA.cancelDiscovery();
         BluetoothDevice device = BA.getRemoteDevice(address);
-
-        // Two things are needed to make a connection:
-        //   A MAC address, which we got above.
-        //   A Service ID or UUID.  In this case we are using the
-        //     UUID for SPP.
         try {
             btSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
         } catch (IOException e) {
         }
-
-        // Discovery is resource intensive.  Make sure it isn't going on
-        // when you attempt to connect and pass your message.
-        BA.cancelDiscovery();
-
-        // Establish the connection.  This will block until it connects.
         try {
             btSocket.connect();
             isConnected = true;
-            menuItem.setIcon(R.mipmap.ic_bluetooth_connected);
+            setIcon(ICON.enabled);
         } catch (IOException e) {
             try {
                 btSocket.close();
-                menuItem.setIcon(R.mipmap.ic_bluetooth_disabled);
+                setIcon(ICON.disabled);
+                Toast.makeText(activity, R.string.bluetooth_error_onconnect, Toast.LENGTH_SHORT)
+                        .show();
                 isConnected = false;
             } catch (IOException e2) {
             }
         }
-
-        // Create a data stream so we can talk to server.
-
-        mConnectedThread = new ConnectedThread(btSocket);
-        mConnectedThread.start();
+        if (bluetoothIn == null) {
+            Toast.makeText(activity, R.string.bluetooth_handler_null, Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            mConnectedThread = new ConnectedThread(btSocket, bluetoothIn, 0);
+            mConnectedThread.start();
+        }
     }
 
     public void pauseComm() {
@@ -170,57 +185,38 @@ public class BTHandler {
 
         try {
             btSocket.close();
-            menuItem.setIcon(R.mipmap.ic_bluetooth_disabled);
+            setIcon(ICON.disabled);
         } catch (IOException e2) {
         }
     }
 
-
-    //create new class for connect thread
-    private class ConnectedThread extends Thread {
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
-
-        //creation of the connect thread
-        public ConnectedThread(BluetoothSocket socket) {
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
-
-            try {
-                //Create I/O streams for connection
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-            }
-
-            mmInStream = tmpIn;
-            mmOutStream = tmpOut;
-        }
-
-        public void run() {
-            byte[] buffer = new byte[256];
-            int bytes;
-
-            // Keep looping to listen for received messages
-            while (true) {
-                try {
-                    bytes = mmInStream.read(buffer);            //read bytes from input buffer
-                    String readMessage = new String(buffer, 0, bytes);
-                    // Send the obtained bytes to the UI Activity via handler
-                    bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
-                } catch (IOException e) {
-                    break;
-                }
-            }
-        }
-
-        //write method
-        public void write(String input) {
-            byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
-            try {
-                mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
-            } catch (IOException e) {
-            }
+    public void addAlarm(String hour, String capsules) {
+        if (isConnected) {
+            String msg = "al" + Utils.encodeHour(hour) + capsules;
+            mConnectedThread.write("b" + msg.length() + ".");
+            mConnectedThread.write("al" + Utils.encodeHour(hour) + capsules);
         }
     }
+
+    public void setIcon(ICON icon) {
+        switch (icon) {
+            case disabled:
+                menuItem.setIcon(R.mipmap.ic_bluetooth_disabled);
+                break;
+            case enabled:
+                menuItem.setIcon(R.mipmap.ic_bluetooth_connected);
+                break;
+            case searching:
+                menuItem.setIcon(R.mipmap.ic_bluetooth_searching);
+                break;
+        }
+    }
+
+
+    public enum ICON {
+        disabled,
+        enabled,
+        searching;
+    }
+
 }

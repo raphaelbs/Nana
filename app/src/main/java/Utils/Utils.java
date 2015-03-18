@@ -31,4 +31,18 @@ public class Utils {
         return 0;
     }
 
+    public static String encodeHour(String hour) {
+        int ihour = Integer.parseInt(hour.charAt(0) + "" + hour.charAt(1));
+        int imin = Integer.parseInt(hour.charAt(3) + "" + hour.charAt(4));
+        String r = (ihour * 6 + (int) (imin / 10)) + "";
+        return r;
+    }
+
+    public static String decodeHour(int hour) {
+        int ihour = hour / 6;
+        int imin = (hour % 6) * 10;
+        String r = String.format("%02d:%02d", ihour, imin);
+        return r;
+    }
+
 }

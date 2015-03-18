@@ -169,9 +169,9 @@ public class DatabaseAlarms extends SQLiteOpenHelper {
     }
 
     public void dropTable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALARM);
-        db.close();
+        ArrayList<InfoData> ar = getAlarms();
+        for (InfoData d : ar)
+            deleteAlarm(d.getID());
     }
 
 }

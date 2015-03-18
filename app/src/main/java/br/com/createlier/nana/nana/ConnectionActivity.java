@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import BluetoothComm.ConnectedThread;
 import recycler_handlers.InfoHolder;
 import recycler_handlers.RITAOAdapter;
 
@@ -21,6 +22,7 @@ public class ConnectionActivity extends ActionBarActivity {
     private TextView title;
     private RecyclerView recyclerView;
     private InfoHolder infoHolder;
+    private ConnectedThread mConnectedThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class ConnectionActivity extends ActionBarActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    public void setConnectedThread(ConnectedThread connectedThread) {
+        this.mConnectedThread = connectedThread;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
